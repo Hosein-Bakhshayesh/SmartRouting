@@ -1,0 +1,73 @@
+﻿@page "/Admin/NavyInfo"
+@model SmartRouting.Pages.Admin.AdminNavyTypeInfoModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "مدیریت ناوگان";
+}
+
+<button id="AddNavyTypeBtn" type="button" class="btn btn-success btn-sm">
+    اضافه کردن نوع جدید
+</button>
+
+<!-- The Modal -->
+<div class="modal fade" id="AddNavyTypeModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                اضافه کردن نوع ناوگان جدید
+                <button type="button" class="CloseAddNavyTypeModal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td class="row">
+                            <div class="col-2">
+                                <label @asp-for></label>
+                            </div>
+                            <div class="col-4">
+                                <input @asp-for />
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-4"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger CloseAddNavyTypeModal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@if (Model.GlcnavyTypeInfoViewModel.Count > 0)
+{
+    <table class="table table-sm table-bordered mt-3">
+        <thead>
+            <tr>
+                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeName)</td>
+                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeLength)</td>
+                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeWidth)</td>
+                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeHeight)</td>
+                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeFuel)</td>
+                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeModel)</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.GlcnavyTypeInfoViewModel)
+        {
+            <tbody>
+                <tr>
+                    <td>@item.GlcnavyTypeName</td>
+                    <td>@item.GlcnavyTypeLength</td>
+                    <td>@item.GlcnavyTypeWidth</td>
+                    <td>@item.GlcnavyTypeHeight</td>
+                    <td>@item.GlcnavyTypeFuel</td>
+                    <td>@item.GlcnavyTypeModel</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}

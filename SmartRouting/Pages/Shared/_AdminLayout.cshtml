@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ادمین</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" href="~/SmartRouting.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin.css" />
+</head>
+<body class="rtl">
+    <div>
+        <nav id="navbar">
+            <div class="pt-4">
+                <div><a href="/Admin" class="text-black B-Nav btn text-decoration-none">داشبورد</a></div>
+                <div><a href="/Admin/NavyInfo" class="text-black B-Nav btn text-decoration-none">ناوگان</a></div>
+
+            </div>
+        </nav>
+    </div>
+    <div>
+        <main id="main" class="mt-4">
+            <article>
+                @RenderBody()
+            </article>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Admin.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

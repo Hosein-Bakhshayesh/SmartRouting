@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRouting", "SmartRouting\SmartRouting.csproj", "{C619C502-7513-4E14-AB08-94AE2666DF71}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRouting.Models", "SmartRouting.Models\SmartRouting.Models.csproj", "{3E731545-9E94-4A8B-95CD-55BFA39BACE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRouting.Services", "SmartRouting.Services\SmartRouting.Services.csproj", "{4CB88207-3E2D-4811-B665-B23AA7A0C8D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRouting.Repository", "SmartRouting.Repository\SmartRouting.Repository.csproj", "{38BD0351-660E-4E74-B154-2EE60BFEA54C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C619C502-7513-4E14-AB08-94AE2666DF71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C619C502-7513-4E14-AB08-94AE2666DF71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C619C502-7513-4E14-AB08-94AE2666DF71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C619C502-7513-4E14-AB08-94AE2666DF71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E731545-9E94-4A8B-95CD-55BFA39BACE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E731545-9E94-4A8B-95CD-55BFA39BACE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E731545-9E94-4A8B-95CD-55BFA39BACE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E731545-9E94-4A8B-95CD-55BFA39BACE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CB88207-3E2D-4811-B665-B23AA7A0C8D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CB88207-3E2D-4811-B665-B23AA7A0C8D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CB88207-3E2D-4811-B665-B23AA7A0C8D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CB88207-3E2D-4811-B665-B23AA7A0C8D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38BD0351-660E-4E74-B154-2EE60BFEA54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38BD0351-660E-4E74-B154-2EE60BFEA54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38BD0351-660E-4E74-B154-2EE60BFEA54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38BD0351-660E-4E74-B154-2EE60BFEA54C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BED9A67-7B74-413C-8585-980B6B1F40C0}
+	EndGlobalSection
+EndGlobal
