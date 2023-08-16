@@ -13,4 +13,6 @@ $('#AddNavyTypeBtn').on("click", function () {
     $('#AddNavyTypeModal').modal('show');
 })
 
-
+$('.CloseAddNavyTypeModal').on('click', function () {
+    $('#AddNavyTypeModal').modal('hide');
+})
