@@ -44,6 +44,7 @@ namespace SmartRouting.Repository.GenericRepository
             try
             {
                 dbSet.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
                 return true;
             }
             catch

@@ -9,51 +9,104 @@
     اضافه کردن نوع جدید
 </button>
 
+@if (Model.ErrorMessage != "")
+{
+    <div class="alert alert-danger mt-2" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
 <!-- The Modal -->
-<div class="modal fade" id="AddNavyTypeModal">
+<div class="modal fade" id="AddNavyTypeModal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 اضافه کردن نوع ناوگان جدید
-                <button type="button" class="CloseAddNavyTypeModal">&times;</button>
+                <button class="btn btn-outline-danger CloseAddNavyTypeModal">&times;</button>
             </div>
+            <form asp-page-handler="AddOrEditNavyType" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td class="row">
+                                <div class="col-4">
+                                    <label asp-for="AddNavyType.GlcnavyTypeName"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="AddNavyType.GlcnavyTypeName" class="form-control" />
+                                    <span asp-validation-for="AddNavyType.GlcnavyTypeName" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddNavyType.GlcnavyTypeLength"></label>
+                                </div>
+                                <div class="col-2">
+                                    <input asp-for="AddNavyType.GlcnavyTypeLength" class="form-control" type="number" step="0.1" />
+                                    <span asp-validation-for="AddNavyType.GlcnavyTypeLength" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddNavyType.GlcnavyTypeWidth"></label>
+                                </div>
+                                <div class="col-2">
+                                    <input asp-for="AddNavyType.GlcnavyTypeWidth" class="form-control" type="number" step="0.1" />
+                                    <span asp-validation-for="AddNavyType.GlcnavyTypeWidth" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddNavyType.GlcnavyTypeHeight"></label>
+                                </div>
+                                <div class="col-2">
+                                    <input asp-for="AddNavyType.GlcnavyTypeHeight" class="form-control" type="number" step="0.1" />
+                                    <span asp-validation-for="AddNavyType.GlcnavyTypeHeight" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddNavyType.GlcnavyTypeFuel"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddNavyType.GlcnavyTypeFuel" class="form-control" />
+                                    <span asp-validation-for="AddNavyType.GlcnavyTypeFuel" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddNavyType.GlcnavyTypeModel"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddNavyType.GlcnavyTypeModel" class="form-control" />
+                                    <span asp-validation-for="AddNavyType.GlcnavyTypeModel" class="text-danger"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-            <div class="modal-body">
-                <table>
-                    <tr>
-                        <td class="row">
-                            <div class="col-2">
-                                <label @asp-for></label>
-                            </div>
-                            <div class="col-4">
-                                <input @asp-for />
-                            </div>
-                            <div class="col-2"></div>
-                            <div class="col-4"></div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger CloseAddNavyTypeModal">Close</button>
-            </div>
-
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    @if (Model.IsEdit)
+                    {
+                        <button type="submit" class="btn btn-outline-warning">ویرایش</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
+                    }
+                    <button type="button" class="btn btn-outline-danger CloseAddNavyTypeModal">بستن</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-@if (Model.GlcnavyTypeInfoViewModel.Count > 0)
+@if (Model.GlcnavyTypeInfoViewModel.Count > 0 || Model.GlcnavyTypeInfoViewModel != null)
 {
     <table class="table table-sm table-bordered mt-3">
-        <thead>
+        <thead class="thead-light">
             <tr>
-                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeName)</td>
-                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeLength)</td>
-                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeWidth)</td>
-                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeHeight)</td>
-                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeFuel)</td>
-                <td>@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeModel)</td>
+                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeName)</td>
+                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeLength)</td>
+                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeWidth)</td>
+                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeHeight)</td>
+                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeFuel)</td>
+                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeModel)</td>
+                <td class="text-center fw-bold">حذف و ویرایش</td>
             </tr>
         </thead>
         @foreach (var item in Model.GlcnavyTypeInfoViewModel)
@@ -66,8 +119,28 @@
                     <td>@item.GlcnavyTypeHeight</td>
                     <td>@item.GlcnavyTypeFuel</td>
                     <td>@item.GlcnavyTypeModel</td>
+                    <td class="row px-0 py-3 mx-0">
+                        <form asp-page-handler="DeleteNavyType" asp-route-id="@item.GlcnavyTypeInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
+                        </form>
+                        <form asp-page-handler="EditNavyType" asp-route-id="@item.GlcnavyTypeInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         }
     </table>
+}
+
+@if (Model.IsEdit)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            $('#AddNavyTypeModal').modal('show');
+        };
+        $('.CloseAddNavyTypeModal').on('click', function () {
+            $('#AddNavyTypeModal').modal('hide');
+        })
+    </script>
 }
