@@ -10,11 +10,15 @@ namespace SmartRouting.Pages.Admin
 {
     public class AdminNavyTypeInfoModel : PageModel
     {
+        public Db_SmartRoutingContext db = new Db_SmartRoutingContext();
         [BindProperty]
         public List<TGlcnavyTypeInfoViewModel>? GlcnavyTypeInfoViewModel { get; set; }
         public List<TGlcnavyTypeInfo>? GlcNavyTypeInfos { get; set; }
-        public Db_SmartRoutingContext db = new Db_SmartRoutingContext();
         public TGlcnavyTypeInfoServices _glcNavyTypeInfoServices { get; set; }
+        public TglcfuelTypeInfoServices _glcfuelTypeInfoServices { get; set; }
+        public TglcnavyRoomTypeInfoServices _glcnavyRoomTypeInfoServices  { get; set; }
+        public List<TglcfuelTypeInfoViewModel>? tglcfuelTypeInfoViewModels { get; set; }
+        public List<TglcnavyRoomTypeInfoViewModel>? tglcnavyRoomTypeInfoViewModels{ get; set; }
         public IMapper _mapper { get; set; }
         [BindProperty]
         public TGlcnavyTypeInfoViewModel AddNavyType { get; set; }
@@ -24,6 +28,8 @@ namespace SmartRouting.Pages.Admin
         public AdminNavyTypeInfoModel(IMapper mapper)
         {
             _glcNavyTypeInfoServices = new TGlcnavyTypeInfoServices(db);
+            _glcfuelTypeInfoServices = new TglcfuelTypeInfoServices(db);
+            _glcnavyRoomTypeInfoServices = new TglcnavyRoomTypeInfoServices(db);
             _mapper = mapper;
             AddNavyType = new TGlcnavyTypeInfoViewModel();
         }
@@ -32,7 +38,7 @@ namespace SmartRouting.Pages.Admin
             IsEdit = false;
             LoadData();
         }
-        public ActionResult OnPostAddOrEditNavyType(bool isEdit,int id)
+        public ActionResult OnPostAddOrEditNavyType(bool isEdit, int id)
         {
             if (!ModelState.IsValid)
             {
@@ -42,9 +48,9 @@ namespace SmartRouting.Pages.Admin
             }
             TGlcnavyTypeInfo glcnavyTypeInfo = new TGlcnavyTypeInfo();
             glcnavyTypeInfo = _mapper.Map<TGlcnavyTypeInfoViewModel, TGlcnavyTypeInfo>(AddNavyType);
-            if (string.IsNullOrEmpty(glcnavyTypeInfo.GlcnavyTypeModel))
+            if (string.IsNullOrEmpty(glcnavyTypeInfo.GlcnavyTypeModel.ToString()))
             {
-                glcnavyTypeInfo.GlcnavyTypeModel = "ندارد";
+                glcnavyTypeInfo.GlcnavyTypeModel = 1;
             }
             bool res;
             if (isEdit)
@@ -64,7 +70,7 @@ namespace SmartRouting.Pages.Admin
                 ErrorMessage = "در عملیات ذخیره سازی مشکلی پیش آمد.";
                 return Page();
             }
-            return RedirectToPage("AdminNavyTypeInfoModel");
+            return RedirectToPage("AdminNavyTypeInfo");
         }
 
         public ActionResult OnPostDeleteNavyType(int id)
@@ -73,7 +79,7 @@ namespace SmartRouting.Pages.Admin
             {
                 _glcNavyTypeInfoServices.Delete(id);
                 _glcNavyTypeInfoServices.Save();
-                return RedirectToPage("AdminNavyTypeInfoModel");
+                return RedirectToPage("AdminNavyTypeInfo");
             }
             LoadData();
             ErrorMessage = "در عملیات حذف مشکلی پیش آمد.";
@@ -95,11 +101,17 @@ namespace SmartRouting.Pages.Admin
             ErrorMessage = "در عملیات ویرایش مشکلی پیش آمد.";
             return Page();
         }
+        public ActionResult OnGetCancel()
+        {
+            return RedirectToPage("AdminNavyTypeInfo");
+        }
 
         public void LoadData()
         {
             GlcNavyTypeInfos = _glcNavyTypeInfoServices.GetAll();
             GlcnavyTypeInfoViewModel = _mapper.Map<List<TGlcnavyTypeInfo>, List<TGlcnavyTypeInfoViewModel>>(GlcNavyTypeInfos);
+            tglcfuelTypeInfoViewModels = _mapper.Map<List<TglcfuelTypeInfo>, List<TglcfuelTypeInfoViewModel>>(_glcfuelTypeInfoServices.GetAll());
+            tglcnavyRoomTypeInfoViewModels = _mapper.Map<List<TglcnavyRoomTypeInfo>, List<TglcnavyRoomTypeInfoViewModel>>(_glcnavyRoomTypeInfoServices.GetAll());
         }
     }
 }

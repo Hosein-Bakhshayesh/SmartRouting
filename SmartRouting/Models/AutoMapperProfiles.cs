@@ -10,6 +10,10 @@ namespace SmartRouting.Models
         {
             CreateMap<TGlcnavyTypeInfo, TGlcnavyTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             CreateMap<TGlcnavyTypeInfoViewModel, TGlcnavyTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TglcnavyRoomTypeInfo, TglcnavyRoomTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TglcnavyRoomTypeInfoViewModel, TglcnavyRoomTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TglcfuelTypeInfo, TglcfuelTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TglcfuelTypeInfoViewModel, TglcfuelTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
         }
     }
 }

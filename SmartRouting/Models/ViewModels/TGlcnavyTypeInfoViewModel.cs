@@ -21,8 +21,9 @@ namespace SmartRouting.Models.ViewModels
         public double GlcnavyTypeHeight { get; set; }
         [Required(ErrorMessage = "فیلد {0} ضروری میباشد.")]
         [Display(Name = "نوع سوخت")]
-        public string GlcnavyTypeFuel { get; set; } = null!;
+        public int GlcnavyTypeFuel { get; set; }
+        [Required(ErrorMessage = "فیلد {0} ضروری میباشد.")]
         [Display(Name = "مدل اتاق")]
-        public string? GlcnavyTypeModel { get; set; }
+        public int GlcnavyTypeModel { get; set; }
     }
 }

@@ -21,7 +21,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 اضافه کردن نوع ناوگان جدید
-                <button class="btn btn-outline-danger CloseAddNavyTypeModal">&times;</button>
             </div>
             <form asp-page-handler="AddOrEditNavyType" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
                 <div class="modal-body">
@@ -64,14 +63,24 @@
                                     <label asp-for="AddNavyType.GlcnavyTypeFuel"></label>
                                 </div>
                                 <div class="col-4">
-                                    <input asp-for="AddNavyType.GlcnavyTypeFuel" class="form-control" />
+                                    <select asp-for="AddNavyType.GlcnavyTypeFuel" class="form-select">
+                                        @foreach (var item in Model.tglcfuelTypeInfoViewModels)
+                                        {
+                                            <option value="@item.GlcfuelTypeId">@item.GlcfurlTypeName</option>
+                                        }
+                                    </select>
                                     <span asp-validation-for="AddNavyType.GlcnavyTypeFuel" class="text-danger"></span>
                                 </div>
                                 <div class="col-2">
                                     <label asp-for="AddNavyType.GlcnavyTypeModel"></label>
                                 </div>
                                 <div class="col-4">
-                                    <input asp-for="AddNavyType.GlcnavyTypeModel" class="form-control" />
+                                    <select asp-for="AddNavyType.GlcnavyTypeModel" class="form-select">
+                                        @foreach (var item in Model.tglcnavyRoomTypeInfoViewModels)
+                                        {
+                                            <option value="@item.GlcnavyRoomTypeId">@item.GlcnavyRoomTypeName</option>
+                                        }
+                                    </select>
                                     <span asp-validation-for="AddNavyType.GlcnavyTypeModel" class="text-danger"></span>
                                 </div>
                             </td>
@@ -88,7 +97,7 @@
                     {
                         <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
                     }
-                    <button type="button" class="btn btn-outline-danger CloseAddNavyTypeModal">بستن</button>
+                        <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
                 </div>
             </form>
         </div>
@@ -113,12 +122,16 @@
         {
             <tbody>
                 <tr>
-                    <td>@item.GlcnavyTypeName</td>
-                    <td>@item.GlcnavyTypeLength</td>
-                    <td>@item.GlcnavyTypeWidth</td>
-                    <td>@item.GlcnavyTypeHeight</td>
-                    <td>@item.GlcnavyTypeFuel</td>
-                    <td>@item.GlcnavyTypeModel</td>
+                    <td class="text-center pt-4">@item.GlcnavyTypeName</td>
+                    <td class="text-center pt-4">@item.GlcnavyTypeLength</td>
+                    <td class="text-center pt-4">@item.GlcnavyTypeWidth</td>
+                    <td class="text-center pt-4">@item.GlcnavyTypeHeight</td>
+                    <td class="text-center pt-4">
+                        @Model._glcfuelTypeInfoServices.GetEntity(item.GlcnavyTypeFuel).GlcfurlTypeName
+                    </td>
+                    <td class="text-center pt-4">
+                        @Model._glcnavyRoomTypeInfoServices.GetEntity(item.GlcnavyTypeModel).GlcnavyRoomTypeName
+                    </td>
                     <td class="row px-0 py-3 mx-0">
                         <form asp-page-handler="DeleteNavyType" asp-route-id="@item.GlcnavyTypeInfoId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
@@ -132,7 +145,6 @@
         }
     </table>
 }
-
 @if (Model.IsEdit)
 {
     <script type="text/javascript">

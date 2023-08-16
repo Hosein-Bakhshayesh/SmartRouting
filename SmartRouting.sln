@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRouting.Models", "Smar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRouting.Services", "SmartRouting.Services\SmartRouting.Services.csproj", "{4CB88207-3E2D-4811-B665-B23AA7A0C8D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRouting.Repository", "SmartRouting.Repository\SmartRouting.Repository.csproj", "{38BD0351-660E-4E74-B154-2EE60BFEA54C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRouting.Repository", "SmartRouting.Repository\SmartRouting.Repository.csproj", "{38BD0351-660E-4E74-B154-2EE60BFEA54C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
