@@ -109,13 +109,13 @@
     <table class="table table-sm table-bordered mt-3">
         <thead class="thead-light">
             <tr>
-                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeName)</td>
-                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeLength)</td>
-                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeWidth)</td>
-                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeHeight)</td>
-                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeFuel)</td>
-                <td class="text-center fw-bold">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeModel)</td>
-                <td class="text-center fw-bold">حذف و ویرایش</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeName)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeLength)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeWidth)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeHeight)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeFuel)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.GlcnavyTypeInfoViewModel.First().GlcnavyTypeModel)</td>
+                <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
             </tr>
         </thead>
         @foreach (var item in Model.GlcnavyTypeInfoViewModel)
@@ -151,6 +151,12 @@
         window.onload = function () {
             $('#AddNavyTypeModal').modal('show');
         };
-
+    </script>
+}
+@section Scripts{
+    <script>
+        $('#Cancel').on('click', function () {
+            window.location.href = "/Admin/NavyInfo";
+        })
     </script>
 }

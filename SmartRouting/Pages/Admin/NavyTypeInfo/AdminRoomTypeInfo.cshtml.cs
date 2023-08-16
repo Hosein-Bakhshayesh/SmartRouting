@@ -6,35 +6,35 @@ using SmartRouting.Models.Models;
 using SmartRouting.Models.ViewModels;
 using SmartRouting.Services.Services;
 
-namespace SmartRouting.Pages.Admin
+namespace SmartRouting.Pages.Admin.NavyTypeInfo
 {
-    public class AdminFuelTypeInfoModel : PageModel
+    public class AdminRoomTypeInfo : PageModel
     {
         public Db_SmartRoutingContext db;
-        public TglcfuelTypeInfoServices _tglcfuelTypeInfoServices { get; set; }
+        public TglcnavyRoomTypeInfoServices _glcnavyRoomTypeInfoServices { get; set; }
         public TGlcnavyTypeInfoServices _glcnavyTypeInfoServices { get; set; }
         [BindProperty]
-        public List<TglcfuelTypeInfoViewModel>? tglcfuelTypeInfoViewModels { get; set; }
+        public List<TglcnavyRoomTypeInfoViewModel>? tglcnavyRoomTypeInfoViewModel { get; set; }
         [BindProperty]
-        public TglcfuelTypeInfoViewModel addFuel { get; set; }
+        public TglcnavyRoomTypeInfoViewModel addRoom { get; set; }
         public IMapper _mapper { get; set; }
         public string ErrorMessage = "";
         public bool IsEdit;
         public int EditId;
-        public AdminFuelTypeInfoModel(IMapper mapper)
+        public AdminRoomTypeInfo(IMapper mapper)
         {
             db = new Db_SmartRoutingContext();
-            _tglcfuelTypeInfoServices = new TglcfuelTypeInfoServices(db);
-            _glcnavyTypeInfoServices = new TGlcnavyTypeInfoServices(db);
-            addFuel = new TglcfuelTypeInfoViewModel();
             _mapper = mapper;
+            _glcnavyRoomTypeInfoServices = new TglcnavyRoomTypeInfoServices(db);
+            _glcnavyTypeInfoServices = new TGlcnavyTypeInfoServices(db);
+            addRoom = new TglcnavyRoomTypeInfoViewModel();
         }
         public void OnGet()
         {
             IsEdit = false;
             LoadData();
         }
-        public ActionResult OnPostAddOrEditFuelType(bool isEdit, int id)
+        public ActionResult OnPostAddOrEditRoomType(bool isEdit, int id)
         {
             if (!ModelState.IsValid)
             {
@@ -42,24 +42,24 @@ namespace SmartRouting.Pages.Admin
                 ErrorMessage = "لطفا فیلد ها را بدرستی پر کنید.";
                 return Page();
             }
-            TglcfuelTypeInfo tglcfuelTypeInfo = new TglcfuelTypeInfo();
-            tglcfuelTypeInfo = _mapper.Map<TglcfuelTypeInfoViewModel, TglcfuelTypeInfo>(addFuel);
+            TglcnavyRoomTypeInfo tglcnavyRoomTypeInfo = new TglcnavyRoomTypeInfo();
+            tglcnavyRoomTypeInfo = _mapper.Map<TglcnavyRoomTypeInfoViewModel, TglcnavyRoomTypeInfo>(addRoom);
             bool res;
             if (isEdit)
             {
-                tglcfuelTypeInfo.GlcfuelTypeId = id;
-                res = _tglcfuelTypeInfoServices.Update(tglcfuelTypeInfo);
+                tglcnavyRoomTypeInfo.GlcnavyRoomTypeId = id;
+                res = _glcnavyRoomTypeInfoServices.Update(tglcnavyRoomTypeInfo);
             }
             else
             {
-                bool isExist = _tglcfuelTypeInfoServices.GetAll().Any(t => t.GlcfurlTypeName == tglcfuelTypeInfo.GlcfurlTypeName);
+                bool isExist = _glcnavyRoomTypeInfoServices.GetAll().Any(t => t.GlcnavyRoomTypeName == tglcnavyRoomTypeInfo.GlcnavyRoomTypeName);
                 if (isExist)
                 {
                     LoadData();
                     ErrorMessage = "نوع سوخت با این نام قبلا در سامانه ثبت شده است.";
                     return Page();
                 }
-                res = _tglcfuelTypeInfoServices.Add(tglcfuelTypeInfo);
+                res = _glcnavyRoomTypeInfoServices.Add(tglcnavyRoomTypeInfo);
             }
             if (!res)
             {
@@ -67,38 +67,37 @@ namespace SmartRouting.Pages.Admin
                 ErrorMessage = "در عملیات ذخیره سازی مشکلی پیش آمد.";
                 return Page();
             }
-            _tglcfuelTypeInfoServices.Save();
-            return RedirectToPage("AdminFuelTypeInfo");
+            _glcnavyRoomTypeInfoServices.Save();
+            return RedirectToPage("AdminRoomTypeInfo");
         }
-        public ActionResult OnPostDeleteFuelType(int id)
+        public ActionResult OnPostDeleteRoomType(int id)
         {
             try
             {
                 if (id > 0)
                 {
-                    _tglcfuelTypeInfoServices.Delete(id);
-                    _tglcfuelTypeInfoServices.Save();
-                    return RedirectToPage("AdminFuelTypeInfo");
+                    _glcnavyRoomTypeInfoServices.Delete(id);
+                    _glcnavyRoomTypeInfoServices.Save();
+                    return RedirectToPage("AdminRoomTypeInfo");
                 }
             }
             catch
             {
                 LoadData();
-                ErrorMessage = "این نوع سوخت در جای دیگر استفاده شده است.";
+                ErrorMessage = "این نوع اتاق در جای دیگر استفاده شده است.";
                 return Page();
             }
             LoadData();
             ErrorMessage = "در عملیات حذف مشکلی پیش آمد.";
             return Page();
         }
-
         public ActionResult OnPostEditFuelType(int id)
         {
             if (id > 0)
             {
                 IsEdit = true;
-                TglcfuelTypeInfo tglcfuelTypeInfo = _tglcfuelTypeInfoServices.GetEntity(id);
-                addFuel = _mapper.Map<TglcfuelTypeInfo, TglcfuelTypeInfoViewModel>(tglcfuelTypeInfo);
+                TglcnavyRoomTypeInfo tglcnavyRoomTypeInfo = _glcnavyRoomTypeInfoServices.GetEntity(id);
+                addRoom = _mapper.Map<TglcnavyRoomTypeInfo, TglcnavyRoomTypeInfoViewModel>(tglcnavyRoomTypeInfo);
                 EditId = id;
                 LoadData();
                 return Page();
@@ -108,9 +107,9 @@ namespace SmartRouting.Pages.Admin
             ErrorMessage = "در عملیات ویرایش مشکلی پیش آمد.";
             return Page();
         }
-        public void LoadData()
+        private void LoadData()
         {
-            tglcfuelTypeInfoViewModels = _mapper.Map<List<TglcfuelTypeInfo>, List<TglcfuelTypeInfoViewModel>>(_tglcfuelTypeInfoServices.GetAll());
+            tglcnavyRoomTypeInfoViewModel = _mapper.Map<List<TglcnavyRoomTypeInfo>, List<TglcnavyRoomTypeInfoViewModel>>(_glcnavyRoomTypeInfoServices.GetAll());
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿@page "/Admin/NavyFuel"
-@model SmartRouting.Pages.Admin.AdminFuelTypeInfoModel
+﻿@page "/Admin/NavyRoom"
+@model SmartRouting.Pages.Admin.NavyTypeInfo.AdminRoomTypeInfo
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "نوع سوخت ناوگان";
+    ViewData["Title"] = "نوع اتاق ناوگان";
     int i = 1;
 }
-
 <button id="AddNavyTypeBtn" type="button" class="btn btn-success btn-sm">
     اضافه کردن نوع جدید
 </button>
@@ -21,19 +20,19 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                اضافه کردن نوع سوخت ناوگان جدید
+                اضافه کردن نوع اتاق ناوگان جدید
             </div>
-            <form asp-page-handler="AddOrEditFuelType" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+            <form asp-page-handler="AddOrEditRoomType" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
                 <div class="modal-body">
                     <table class="table">
                         <tr>
                             <td class="row">
                                 <div class="col-4">
-                                    <label asp-for="addFuel.GlcfurlTypeName"></label>
+                                    <label asp-for="addRoom.GlcnavyRoomTypeName"></label>
                                 </div>
                                 <div class="col-8">
-                                    <input asp-for="addFuel.GlcfurlTypeName" class="form-control" />
-                                    <span asp-validation-for="addFuel.GlcfurlTypeName" class="text-danger"></span>
+                                    <input asp-for="addRoom.GlcnavyRoomTypeName" class="form-control" />
+                                    <span asp-validation-for="addRoom.GlcnavyRoomTypeName" class="text-danger"></span>
                                 </div>
                             </td>
                         </tr>
@@ -55,28 +54,28 @@
     </div>
 </div>
 
-@if (Model.tglcfuelTypeInfoViewModels.Count > 0 || Model.tglcfuelTypeInfoViewModels != null)
+@if (Model.tglcnavyRoomTypeInfoViewModel.Count > 0 || Model.tglcnavyRoomTypeInfoViewModel != null)
 {
     <table class="table table-sm table-bordered mt-3">
         <thead class="thead-light">
             <tr>
                 <td class="text-center fw-bold pt-2">شماره</td>
-                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.tglcfuelTypeInfoViewModels.First().GlcfurlTypeName)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.tglcnavyRoomTypeInfoViewModel.First().GlcnavyRoomTypeName)</td>
                 <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
             </tr>
         </thead>
-        @foreach (var item in Model.tglcfuelTypeInfoViewModels)
+        @foreach (var item in Model.tglcnavyRoomTypeInfoViewModel)
         {
 
             <tbody>
                 <tr>
                     <td class="text-center pt-4">@i</td>
-                    <td class="text-center pt-4">@item.GlcfurlTypeName</td>
+                    <td class="text-center pt-4">@item.GlcnavyRoomTypeName</td>
                     <td class="row px-0 py-3 mx-0">
-                        <form asp-page-handler="DeleteFuelType" asp-route-id="@item.GlcfuelTypeId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="DeleteRoomType" asp-route-id="@item.GlcnavyRoomTypeId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
                         </form>
-                        <form asp-page-handler="EditFuelType" asp-route-id="@item.GlcfuelTypeId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="EditFuelType" asp-route-id="@item.GlcnavyRoomTypeId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
                         </form>
                     </td>
@@ -101,7 +100,7 @@
 @section Scripts{
     <script>
         $('#Cancel').on('click', function () {
-            window.location.href = "/Admin/NavyFuel";
+            window.location.href = "/Admin/NavyRoom";
         })
     </script>
 }

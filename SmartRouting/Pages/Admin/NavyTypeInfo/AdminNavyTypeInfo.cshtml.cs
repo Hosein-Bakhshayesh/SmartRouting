@@ -61,15 +61,14 @@ namespace SmartRouting.Pages.Admin
             else
             {
                 res = _glcNavyTypeInfoServices.Add(glcnavyTypeInfo);
-                _glcNavyTypeInfoServices.Save();
             }
-
             if (!res)
             {
                 LoadData();
                 ErrorMessage = "در عملیات ذخیره سازی مشکلی پیش آمد.";
                 return Page();
             }
+            _glcNavyTypeInfoServices.Save();
             return RedirectToPage("AdminNavyTypeInfo");
         }
 
@@ -101,11 +100,6 @@ namespace SmartRouting.Pages.Admin
             ErrorMessage = "در عملیات ویرایش مشکلی پیش آمد.";
             return Page();
         }
-        public ActionResult OnGetCancel()
-        {
-            return RedirectToPage("AdminNavyTypeInfo");
-        }
-
         public void LoadData()
         {
             GlcNavyTypeInfos = _glcNavyTypeInfoServices.GetAll();
