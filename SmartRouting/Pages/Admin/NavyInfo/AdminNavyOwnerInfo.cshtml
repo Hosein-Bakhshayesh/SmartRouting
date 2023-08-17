@@ -1,13 +1,13 @@
-﻿@page "/Admin/NavyFuel"
-@model SmartRouting.Pages.Admin.AdminFuelTypeInfoModel
+﻿@page "/Admin/NavyOwner"
+@model SmartRouting.Pages.Admin.NavyInfo.AdminNavyOwnerInfoModel
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "نوع سوخت ناوگان";
+    ViewData["Title"] = "نوع مالکیت ناوگان";
     int i = 1;
 }
 
 <button id="AddNavyTypeBtn" type="button" class="btn btn-success btn-sm">
-    اضافه کردن نوع سوخت جدید
+    اضافه کردن نوع مالکیت جدید
 </button>
 
 @if (Model.ErrorMessage != "")
@@ -21,22 +21,23 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                اضافه کردن نوع سوخت ناوگان جدید
+                اضافه کردن نوع مالکیت ناوگان جدید
             </div>
-            <form asp-page-handler="AddOrEditFuelType" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+            <form asp-page-handler="AddOrEditNavyOwner" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
                 <div class="modal-body">
                     <table class="table">
                         <tr>
                             <td class="row">
-                                <div class="col-4">
-                                    <label asp-for="addFuel.GlcfurlTypeName"></label>
+                                <div class="col-2">
+                                    <label asp-for="addOwner.GlcnavyOwnerName"></label>
                                 </div>
-                                <div class="col-8">
-                                    <input asp-for="addFuel.GlcfurlTypeName" class="form-control" />
-                                    <span asp-validation-for="addFuel.GlcfurlTypeName" class="text-danger"></span>
+                                <div class="col-10">
+                                    <input asp-for="addOwner.GlcnavyOwnerName" class="form-control" />
+                                    <span asp-validation-for="addOwner.GlcnavyOwnerName" class="text-danger"></span>
                                 </div>
                             </td>
                         </tr>
+
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -55,28 +56,34 @@
     </div>
 </div>
 
-@if (Model.tglcfuelTypeInfoViewModels.Count > 0 || Model.tglcfuelTypeInfoViewModels != null)
+@if (Model.glcnavyOwnerInfoViewModels.Count > 0 || Model.glcnavyOwnerInfoViewModels != null)
 {
     <table class="table table-sm table-bordered mt-3">
         <thead class="thead-light">
             <tr>
                 <td class="text-center fw-bold pt-2">شماره</td>
-                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.tglcfuelTypeInfoViewModels.First().GlcfurlTypeName)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcnavyOwnerInfoViewModels.First().GlcnavyOwnerName)</td>
+
                 <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
             </tr>
         </thead>
-        @foreach (var item in Model.tglcfuelTypeInfoViewModels)
+        @foreach (var item in Model.glcnavyOwnerInfoViewModels)
         {
-
             <tbody>
                 <tr>
-                    <td class="text-center pt-4">@i</td>
-                    <td class="text-center pt-4">@item.GlcfurlTypeName</td>
+                    <td class="text-center pt-4">
+                        @i
+                    </td>
+                    <td class="text-center pt-4">
+
+                        <span>@item.GlcnavyOwnerName</span>
+
+                    </td>
                     <td class="row px-0 py-3 mx-0">
-                        <form asp-page-handler="DeleteFuelType" asp-route-id="@item.GlcfuelTypeId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="DeleteNavyOwner" asp-route-id="@item.GlcnavyOwnerId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
                         </form>
-                        <form asp-page-handler="EditFuelType" asp-route-id="@item.GlcfuelTypeId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="EditNavyOwner" asp-route-id="@item.GlcnavyOwnerId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
                         </form>
                     </td>
@@ -97,11 +104,10 @@
         };
     </script>
 }
-
 @section Scripts{
     <script>
         $('#Cancel').on('click', function () {
-            window.location.href = "/Admin/NavyFuel";
+            window.location.href = "/Admin/NavyOwner";
         })
     </script>
 }

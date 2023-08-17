@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Services.Services
 {
-    public interface ITglcfuelTypeInfoServices:IGenericServices<TGlcfuelTypeInfo>
+    public interface ITGlcnavyOwnerInfoServices:IGenericServices<TGlcnavyOwnerInfo>
     {
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Repository.Repository
 {
-    public class TglcnavyRoomTypeInfoRepository : GenericRepository<TGlcnavyRoomTypeInfo>, ITglcnavyRoomTypeInfoRepository
+    public class TGlcnavyOwnerInfoRepository : GenericRepository<TGlcnavyOwnerInfo>, ITGlcnavyOwnerInfoRepository
     {
-        public TglcnavyRoomTypeInfoRepository(Db_SmartRoutingContext context) : base(context)
+        public TGlcnavyOwnerInfoRepository(Db_SmartRoutingContext context) : base(context)
         {
         }
     }

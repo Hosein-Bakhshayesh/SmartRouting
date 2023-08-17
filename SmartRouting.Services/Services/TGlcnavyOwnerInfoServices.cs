@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Services.Services
 {
-    public class TglcfuelTypeInfoServices : GenericServices<TGlcfuelTypeInfo>, ITglcfuelTypeInfoServices
+    public class TGlcnavyOwnerInfoServices : GenericServices<TGlcnavyOwnerInfo>, ITGlcnavyOwnerInfoServices
     {
-        public TglcfuelTypeInfoServices(Db_SmartRoutingContext context) : base(context)
+        public TGlcnavyOwnerInfoServices(Db_SmartRoutingContext context) : base(context)
         {
         }
     }

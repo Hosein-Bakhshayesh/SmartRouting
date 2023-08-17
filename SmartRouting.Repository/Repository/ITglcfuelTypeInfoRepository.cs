@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Repository.Repository
 {
-    public interface ITglcfuelTypeInfoRepository:IGenericRepository<TglcfuelTypeInfo>
+    public interface ITglcfuelTypeInfoRepository:IGenericRepository<TGlcfuelTypeInfo>
     {
     }
 }

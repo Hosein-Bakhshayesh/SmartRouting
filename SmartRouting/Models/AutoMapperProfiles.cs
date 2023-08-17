@@ -10,10 +10,14 @@ namespace SmartRouting.Models
         {
             CreateMap<TGlcnavyTypeInfo, TGlcnavyTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             CreateMap<TGlcnavyTypeInfoViewModel, TGlcnavyTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
-            CreateMap<TglcnavyRoomTypeInfo, TglcnavyRoomTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
-            CreateMap<TglcnavyRoomTypeInfoViewModel, TglcnavyRoomTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
-            CreateMap<TglcfuelTypeInfo, TglcfuelTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
-            CreateMap<TglcfuelTypeInfoViewModel, TglcfuelTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcnavyRoomTypeInfo, TglcnavyRoomTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TglcnavyRoomTypeInfoViewModel, TGlcnavyRoomTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcfuelTypeInfo, TglcfuelTypeInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TglcfuelTypeInfoViewModel, TGlcfuelTypeInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcnavyInfo, TGlcnavyInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcnavyInfoViewModel, TGlcnavyInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcnavyOwnerInfo, TGlcnavyOwnerInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcnavyOwnerInfoViewModel, TGlcnavyOwnerInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
         }
     }
 }

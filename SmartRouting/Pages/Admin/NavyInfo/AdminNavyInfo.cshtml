@@ -1,0 +1,191 @@
+﻿@page "/Admin/NavyInfo"
+@model SmartRouting.Pages.Admin.NavyInfo.AdminNavyInfoModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "مدیریت ناوگان";
+}
+
+<button id="AddNavyTypeBtn" type="button" class="btn btn-success btn-sm">
+    اضافه کردن ناوگان جدید
+</button>
+
+@if (Model.ErrorMessage != "")
+{
+    <div class="alert alert-danger mt-2" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
+<!-- The Modal -->
+<div class="modal fade" id="AddNavyTypeModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                اضافه کردن ناوگان جدید
+            </div>
+            <form asp-page-handler="AddOrEditNavy" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="addNavy.GlcnavyType"></label>
+                                </div>
+                                <div class="col-4">
+                                    <select asp-for="addNavy.GlcnavyType" class="form-select">
+                                        @if (Model.glcnavyTypeInfoViewModels != null)
+                                        {
+                                            @foreach (var item in Model.glcnavyTypeInfoViewModels)
+                                            {
+                                                <option value="@item.GlcnavyTypeInfoId">@item.GlcnavyTypeName</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="addNavy.GlcnavyType" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="addNavy.GlcnavyOwnerType"></label>
+                                </div>
+                                <div class="col-4">
+                                    <select asp-for="addNavy.GlcnavyOwnerType" class="form-select">
+                                        @foreach (var item in Model._glcnavyOwnerInfoServices.GetAll())
+                                        {
+                                            <option value="@item.GlcnavyOwnerId">@item.GlcnavyOwnerName</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="addNavy.GlcnavyOwnerType" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-3">
+                                    <label asp-for="addNavy.GlcnavyPelakIran"></label>
+                                </div>
+                                <div class="col-3">
+                                    <label asp-for="addNavy.GlcnavyPelak3"></label>
+                                </div>
+                                <div class="col-3">
+                                    <label asp-for="addNavy.GlcnavyPelakChar"></label>
+                                </div>
+                                <div class="col-3">
+                                    <label asp-for="addNavy.GlcnavyPelak2"></label>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-3">
+                                    <select asp-for="addNavy.GlcnavyPelakIran" class="form-select">
+                                        @for (int j = 10; j < 100; j++)
+                                        {
+                                            <option value="@j">@j</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="addNavy.GlcnavyPelakIran" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-3">
+                                    <select asp-for="addNavy.GlcnavyPelak3" class="form-select">
+                                        @for (int j = 100; j < 1000; j++)
+                                        {
+                                            <option value="@j">@j</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="addNavy.GlcnavyPelak3" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-3">
+                                    <select asp-for="addNavy.GlcnavyPelakChar" class="form-select">
+                                        @for (int j = 'آ'; j <= 'ی'; j++)
+                                        {
+                                            <option value="@((char)j)">@((char)j)</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="addNavy.GlcnavyPelakChar" class="text-danger"></span>
+                                </div>
+                                <div class="col-3">
+                                    <select asp-for="addNavy.GlcnavyPelak2" class="form-select">
+                                        @for (int j = 10; j < 100; j++)
+                                        {
+                                            <option value="@j">@j</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="addNavy.GlcnavyPelak2" class="text-danger"></span>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    @if (Model.IsEdit)
+                    {
+                        <button type="submit" class="btn btn-outline-warning">ویرایش</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
+                    }
+                    <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (Model.glcnavyInfoViewModels.Count > 0 || Model.glcnavyInfoViewModels != null)
+{
+    <table class="table table-sm table-bordered mt-3">
+        <thead class="thead-light">
+            <tr>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcnavyInfoViewModels.First().GlcnavyType)</td>
+                <td class="text-center fw-bold pt-2" colspan="3">پلاک ماشین</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcnavyInfoViewModels.First().GlcnavyOwnerType)</td>
+
+                <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.glcnavyInfoViewModels)
+        {
+            <tbody>
+                <tr>
+                    <td class="text-center pt-4">
+                        @if (Model.glcnavyTypeInfoViewModels != null)
+                        {
+                            @Model._glcnavyTypeInfoServices.GetEntity(item.GlcnavyType).GlcnavyTypeName
+                        }
+                    </td>
+                    <td class="text-center pt-4" colspan="3">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <span>@item.GlcnavyPelakIran - @item.GlcnavyPelak3 - @item.GlcnavyPelakChar - @item.GlcnavyPelak2</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center pt-4">
+                        @Model._glcnavyOwnerInfoServices.GetEntity(@item.GlcnavyOwnerType).GlcnavyOwnerName
+                    </td>
+                    <td class="row px-0 py-3 mx-0">
+                        <form asp-page-handler="DeleteNavy" asp-route-id="@item.GlcnavyInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
+                        </form>
+                        <form asp-page-handler="EditNavy" asp-route-id="@item.GlcnavyInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+@if (Model.IsEdit)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            $('#AddNavyTypeModal').modal('show');
+        };
+    </script>
+}
+@section Scripts{
+    <script>
+        $('#Cancel').on('click', function () {
+            window.location.href = "/Admin/NavyInfo";
+        })
+    </script>
+}

@@ -42,8 +42,8 @@ namespace SmartRouting.Pages.Admin.NavyTypeInfo
                 ErrorMessage = "لطفا فیلد ها را بدرستی پر کنید.";
                 return Page();
             }
-            TglcnavyRoomTypeInfo tglcnavyRoomTypeInfo = new TglcnavyRoomTypeInfo();
-            tglcnavyRoomTypeInfo = _mapper.Map<TglcnavyRoomTypeInfoViewModel, TglcnavyRoomTypeInfo>(addRoom);
+            TGlcnavyRoomTypeInfo tglcnavyRoomTypeInfo = new TGlcnavyRoomTypeInfo();
+            tglcnavyRoomTypeInfo = _mapper.Map<TglcnavyRoomTypeInfoViewModel, TGlcnavyRoomTypeInfo>(addRoom);
             bool res;
             if (isEdit)
             {
@@ -96,8 +96,8 @@ namespace SmartRouting.Pages.Admin.NavyTypeInfo
             if (id > 0)
             {
                 IsEdit = true;
-                TglcnavyRoomTypeInfo tglcnavyRoomTypeInfo = _glcnavyRoomTypeInfoServices.GetEntity(id);
-                addRoom = _mapper.Map<TglcnavyRoomTypeInfo, TglcnavyRoomTypeInfoViewModel>(tglcnavyRoomTypeInfo);
+                TGlcnavyRoomTypeInfo tglcnavyRoomTypeInfo = _glcnavyRoomTypeInfoServices.GetEntity(id);
+                addRoom = _mapper.Map<TGlcnavyRoomTypeInfo, TglcnavyRoomTypeInfoViewModel>(tglcnavyRoomTypeInfo);
                 EditId = id;
                 LoadData();
                 return Page();
@@ -109,7 +109,7 @@ namespace SmartRouting.Pages.Admin.NavyTypeInfo
         }
         private void LoadData()
         {
-            tglcnavyRoomTypeInfoViewModel = _mapper.Map<List<TglcnavyRoomTypeInfo>, List<TglcnavyRoomTypeInfoViewModel>>(_glcnavyRoomTypeInfoServices.GetAll());
+            tglcnavyRoomTypeInfoViewModel = _mapper.Map<List<TGlcnavyRoomTypeInfo>, List<TglcnavyRoomTypeInfoViewModel>>(_glcnavyRoomTypeInfoServices.GetAll());
         }
     }
 }

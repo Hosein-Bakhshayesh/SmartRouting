@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartRouting.Models.Models;
 
-public partial class TGlcterminalInfo:BaseEntity
+public partial class TGlcterminalInfo:BaseEntity    
 {
     public int GlcterminalInfoId { get; set; }
 

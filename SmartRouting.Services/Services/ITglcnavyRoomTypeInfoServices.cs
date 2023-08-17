@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Services.Services
 {
-    public interface ITglcnavyRoomTypeInfoServices:IGenericServices<TglcnavyRoomTypeInfo>
+    public interface ITglcnavyRoomTypeInfoServices:IGenericServices<TGlcnavyRoomTypeInfo>
     {
     }
 }

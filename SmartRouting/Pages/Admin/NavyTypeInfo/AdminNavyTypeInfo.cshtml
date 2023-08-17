@@ -1,8 +1,8 @@
-﻿@page "/Admin/NavyInfo"
+﻿@page "/Admin/NavyType"
 @model SmartRouting.Pages.Admin.AdminNavyTypeInfoModel
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "مدیریت ناوگان";
+    ViewData["Title"] = "نوع ناوگان";
 }
 
 <button id="AddNavyTypeBtn" type="button" class="btn btn-success btn-sm">
@@ -156,7 +156,7 @@
 @section Scripts{
     <script>
         $('#Cancel').on('click', function () {
-            window.location.href = "/Admin/NavyInfo";
+            window.location.href = "/Admin/NavyType";
         })
     </script>
 }

@@ -22,17 +22,19 @@ public partial class Db_SmartRoutingContext : DbContext
 
     public virtual DbSet<TGlcdriverShiftInfo> TGlcdriverShiftInfos { get; set; }
 
+    public virtual DbSet<TGlcfuelTypeInfo> TGlcfuelTypeInfos { get; set; }
+
     public virtual DbSet<TGlcnavyInfo> TGlcnavyInfos { get; set; }
+
+    public virtual DbSet<TGlcnavyOwnerInfo> TGlcnavyOwnerInfos { get; set; }
+
+    public virtual DbSet<TGlcnavyRoomTypeInfo> TGlcnavyRoomTypeInfos { get; set; }
 
     public virtual DbSet<TGlcnavyTypeInfo> TGlcnavyTypeInfos { get; set; }
 
     public virtual DbSet<TGlcterminalInfo> TGlcterminalInfos { get; set; }
 
     public virtual DbSet<TGlcusersInfo> TGlcusersInfos { get; set; }
-
-    public virtual DbSet<TglcfuelTypeInfo> TglcfuelTypeInfos { get; set; }
-
-    public virtual DbSet<TglcnavyRoomTypeInfo> TglcnavyRoomTypeInfos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -124,6 +126,16 @@ public partial class Db_SmartRoutingContext : DbContext
                 .HasConstraintName("FK_T_Terminal_T_DriverShift");
         });
 
+        modelBuilder.Entity<TGlcfuelTypeInfo>(entity =>
+        {
+            entity.HasKey(e => e.GlcfuelTypeId).HasName("PK_TGLCFuelTypeInfo");
+
+            entity.ToTable("T_GLCFuelTypeInfo");
+
+            entity.Property(e => e.GlcfuelTypeId).HasColumnName("GLCFuelType_ID");
+            entity.Property(e => e.GlcfurlTypeName).HasColumnName("GLCFurlType_Name");
+        });
+
         modelBuilder.Entity<TGlcnavyInfo>(entity =>
         {
             entity.HasKey(e => e.GlcnavyInfoId).HasName("PK_T_NLGC");
@@ -131,9 +143,7 @@ public partial class Db_SmartRoutingContext : DbContext
             entity.ToTable("T_GLCNavyInfo");
 
             entity.Property(e => e.GlcnavyInfoId).HasColumnName("GLCNavyInfo_ID");
-            entity.Property(e => e.GlcnavyOwnerType)
-                .HasMaxLength(50)
-                .HasColumnName("GLCNavy_OwnerType");
+            entity.Property(e => e.GlcnavyOwnerType).HasColumnName("GLCNavy_OwnerType");
             entity.Property(e => e.GlcnavyPelak2).HasColumnName("GLCNavy_Pelak2");
             entity.Property(e => e.GlcnavyPelak3).HasColumnName("GLCNavy_Pelak3");
             entity.Property(e => e.GlcnavyPelakChar)
@@ -149,6 +159,26 @@ public partial class Db_SmartRoutingContext : DbContext
                 .HasConstraintName("FK_T_Navgan_T_NLGC");
         });
 
+        modelBuilder.Entity<TGlcnavyOwnerInfo>(entity =>
+        {
+            entity.HasKey(e => e.GlcnavyOwnerId).HasName("PK_TGLCNavyOwnerInfo");
+
+            entity.ToTable("T_GLCNavyOwnerInfo");
+
+            entity.Property(e => e.GlcnavyOwnerId).HasColumnName("GLCNavyOwner_ID");
+            entity.Property(e => e.GlcnavyOwnerName).HasColumnName("GLCNavyOwner_Name");
+        });
+
+        modelBuilder.Entity<TGlcnavyRoomTypeInfo>(entity =>
+        {
+            entity.HasKey(e => e.GlcnavyRoomTypeId).HasName("PK_TGLCNavyRoomTypeInfo");
+
+            entity.ToTable("T_GLCNavyRoomTypeInfo");
+
+            entity.Property(e => e.GlcnavyRoomTypeId).HasColumnName("GLCNavyRoomType_ID");
+            entity.Property(e => e.GlcnavyRoomTypeName).HasColumnName("GLCNavyRoomType_Name");
+        });
+
         modelBuilder.Entity<TGlcnavyTypeInfo>(entity =>
         {
             entity.HasKey(e => e.GlcnavyTypeInfoId).HasName("PK_T_Navgan");
@@ -162,16 +192,6 @@ public partial class Db_SmartRoutingContext : DbContext
             entity.Property(e => e.GlcnavyTypeModel).HasColumnName("GLCNavyType_Model");
             entity.Property(e => e.GlcnavyTypeName).HasColumnName("GLCNavyType_Name");
             entity.Property(e => e.GlcnavyTypeWidth).HasColumnName("GLCNavyType_Width");
-
-            entity.HasOne(d => d.GlcnavyTypeFuelNavigation).WithMany(p => p.TGlcnavyTypeInfos)
-                .HasForeignKey(d => d.GlcnavyTypeFuel)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_T_GLCFuelType_T_GLCNavyTypeInfo");
-
-            entity.HasOne(d => d.GlcnavyTypeModelNavigation).WithMany(p => p.TGlcnavyTypeInfos)
-                .HasForeignKey(d => d.GlcnavyTypeModel)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_T_GLCNavyRoomMoodel_T_GLCNavyTypeInfo");
         });
 
         modelBuilder.Entity<TGlcterminalInfo>(entity =>
@@ -205,26 +225,6 @@ public partial class Db_SmartRoutingContext : DbContext
             entity.Property(e => e.GlcusersType)
                 .HasMaxLength(50)
                 .HasColumnName("GLCUsers_Type");
-        });
-
-        modelBuilder.Entity<TglcfuelTypeInfo>(entity =>
-        {
-            entity.HasKey(e => e.GlcfuelTypeId);
-
-            entity.ToTable("TGLCFuelTypeInfo");
-
-            entity.Property(e => e.GlcfuelTypeId).HasColumnName("GLCFuelType_ID");
-            entity.Property(e => e.GlcfurlTypeName).HasColumnName("GLCFurlType_Name");
-        });
-
-        modelBuilder.Entity<TglcnavyRoomTypeInfo>(entity =>
-        {
-            entity.HasKey(e => e.GlcnavyRoomTypeId);
-
-            entity.ToTable("TGLCNavyRoomTypeInfo");
-
-            entity.Property(e => e.GlcnavyRoomTypeId).HasColumnName("GLCNavyRoomType_ID");
-            entity.Property(e => e.GlcnavyRoomTypeName).HasColumnName("GLCNavyRoomType_Name");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Repository.Repository
 {
-    public interface ITglcnavyRoomTypeInfoRepository:IGenericRepository<TGlcnavyRoomTypeInfo>
+    public interface ITGlcnavyOwnerInfoRepository:IGenericRepository<TGlcnavyOwnerInfo>
     {
     }
 }

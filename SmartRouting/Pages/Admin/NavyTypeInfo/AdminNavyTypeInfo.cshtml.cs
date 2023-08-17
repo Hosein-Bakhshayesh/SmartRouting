@@ -74,15 +74,24 @@ namespace SmartRouting.Pages.Admin
 
         public ActionResult OnPostDeleteNavyType(int id)
         {
-            if (id > 0)
+            try
             {
-                _glcNavyTypeInfoServices.Delete(id);
-                _glcNavyTypeInfoServices.Save();
-                return RedirectToPage("AdminNavyTypeInfo");
+                if (id > 0)
+                {
+                    _glcNavyTypeInfoServices.Delete(id);
+                    _glcNavyTypeInfoServices.Save();
+                    return RedirectToPage("AdminNavyTypeInfo");
+                }
+                LoadData();
+                ErrorMessage = "در عملیات حذف مشکلی پیش آمد.";
+                return Page();
             }
-            LoadData();
-            ErrorMessage = "در عملیات حذف مشکلی پیش آمد.";
-            return Page();
+            catch
+            {
+                LoadData();
+                ErrorMessage = "این نوع ناوگان در جای دیگر استفاده شده است.";
+                return Page();
+            }
         }
 
         public ActionResult OnPostEditNavyType(int id)
@@ -104,8 +113,8 @@ namespace SmartRouting.Pages.Admin
         {
             GlcNavyTypeInfos = _glcNavyTypeInfoServices.GetAll();
             GlcnavyTypeInfoViewModel = _mapper.Map<List<TGlcnavyTypeInfo>, List<TGlcnavyTypeInfoViewModel>>(GlcNavyTypeInfos);
-            tglcfuelTypeInfoViewModels = _mapper.Map<List<TglcfuelTypeInfo>, List<TglcfuelTypeInfoViewModel>>(_glcfuelTypeInfoServices.GetAll());
-            tglcnavyRoomTypeInfoViewModels = _mapper.Map<List<TglcnavyRoomTypeInfo>, List<TglcnavyRoomTypeInfoViewModel>>(_glcnavyRoomTypeInfoServices.GetAll());
+            tglcfuelTypeInfoViewModels = _mapper.Map<List<TGlcfuelTypeInfo>, List<TglcfuelTypeInfoViewModel>>(_glcfuelTypeInfoServices.GetAll());
+            tglcnavyRoomTypeInfoViewModels = _mapper.Map<List<TGlcnavyRoomTypeInfo>, List<TglcnavyRoomTypeInfoViewModel>>(_glcnavyRoomTypeInfoServices.GetAll());
         }
     }
 }

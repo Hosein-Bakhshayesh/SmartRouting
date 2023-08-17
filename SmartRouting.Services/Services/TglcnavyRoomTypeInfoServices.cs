@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Services.Services
 {
-    public class TglcnavyRoomTypeInfoServices : GenericServices<TglcnavyRoomTypeInfo>, ITglcnavyRoomTypeInfoServices
+    public class TglcnavyRoomTypeInfoServices : GenericServices<TGlcnavyRoomTypeInfo>, ITglcnavyRoomTypeInfoServices
     {
         public TglcnavyRoomTypeInfoServices(Db_SmartRoutingContext context) : base(context)
         {

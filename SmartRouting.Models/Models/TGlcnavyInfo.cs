@@ -17,7 +17,7 @@ public partial class TGlcnavyInfo:BaseEntity
 
     public int GlcnavyPelak3 { get; set; }
 
-    public string GlcnavyOwnerType { get; set; } = null!;
+    public int GlcnavyOwnerType { get; set; }
 
     public virtual TGlcnavyTypeInfo GlcnavyTypeNavigation { get; set; } = null!;
 

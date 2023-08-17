@@ -42,8 +42,8 @@ namespace SmartRouting.Pages.Admin
                 ErrorMessage = "لطفا فیلد ها را بدرستی پر کنید.";
                 return Page();
             }
-            TglcfuelTypeInfo tglcfuelTypeInfo = new TglcfuelTypeInfo();
-            tglcfuelTypeInfo = _mapper.Map<TglcfuelTypeInfoViewModel, TglcfuelTypeInfo>(addFuel);
+            TGlcfuelTypeInfo tglcfuelTypeInfo = new TGlcfuelTypeInfo();
+            tglcfuelTypeInfo = _mapper.Map<TglcfuelTypeInfoViewModel, TGlcfuelTypeInfo>(addFuel);
             bool res;
             if (isEdit)
             {
@@ -97,8 +97,8 @@ namespace SmartRouting.Pages.Admin
             if (id > 0)
             {
                 IsEdit = true;
-                TglcfuelTypeInfo tglcfuelTypeInfo = _tglcfuelTypeInfoServices.GetEntity(id);
-                addFuel = _mapper.Map<TglcfuelTypeInfo, TglcfuelTypeInfoViewModel>(tglcfuelTypeInfo);
+                TGlcfuelTypeInfo tglcfuelTypeInfo = _tglcfuelTypeInfoServices.GetEntity(id);
+                addFuel = _mapper.Map<TGlcfuelTypeInfo, TglcfuelTypeInfoViewModel>(tglcfuelTypeInfo);
                 EditId = id;
                 LoadData();
                 return Page();
@@ -110,7 +110,7 @@ namespace SmartRouting.Pages.Admin
         }
         public void LoadData()
         {
-            tglcfuelTypeInfoViewModels = _mapper.Map<List<TglcfuelTypeInfo>, List<TglcfuelTypeInfoViewModel>>(_tglcfuelTypeInfoServices.GetAll());
+            tglcfuelTypeInfoViewModels = _mapper.Map<List<TGlcfuelTypeInfo>, List<TglcfuelTypeInfoViewModel>>(_tglcfuelTypeInfoServices.GetAll());
         }
     }
 }

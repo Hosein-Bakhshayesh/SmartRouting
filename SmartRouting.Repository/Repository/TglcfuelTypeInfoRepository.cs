@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartRouting.Repository.Repository
 {
-    public class TglcfuelTypeInfoRepository : GenericRepository<TglcfuelTypeInfo>, ITglcfuelTypeInfoRepository
+    public class TglcfuelTypeInfoRepository : GenericRepository<TGlcfuelTypeInfo>, ITglcfuelTypeInfoRepository
     {
         public TglcfuelTypeInfoRepository(Db_SmartRoutingContext context) : base(context)
         {
