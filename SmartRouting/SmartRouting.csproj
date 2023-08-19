@@ -22,4 +22,8 @@
     <ProjectReference Include="..\SmartRouting.Services\SmartRouting.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\DriversImage\" />
+  </ItemGroup>
+
 </Project>

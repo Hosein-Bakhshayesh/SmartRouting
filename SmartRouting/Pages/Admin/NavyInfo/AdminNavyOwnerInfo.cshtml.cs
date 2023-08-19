@@ -83,7 +83,8 @@ namespace SmartRouting.Pages.Admin.NavyInfo
                 }
                 catch
                 {
-                    ErrorMessage = "از این مالکیت در جای دیگر استفاده شده است و امکان جذف وجود ندارد.";
+                    ErrorMessage = "از این مالکیت در جای دیگر استفاده شده است و امکان حذف وجود ندارد.";
+                    LoadData();
                     return Page();
 
                 }

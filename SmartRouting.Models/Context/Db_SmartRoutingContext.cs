@@ -89,11 +89,11 @@ public partial class Db_SmartRoutingContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("GLCDriver_NationalCode");
-            entity.Property(e => e.GlcdriverNlgcid).HasColumnName("GLCDriver_NLGCID");
+            entity.Property(e => e.GlcdriverNavyInfoId).HasColumnName("GLCDriver_NavyInfoID");
             entity.Property(e => e.GlcdriverPhotoPath).HasColumnName("GLCDriver_PhotoPath");
 
-            entity.HasOne(d => d.GlcdriverNlgc).WithMany(p => p.TGlcdriverInfos)
-                .HasForeignKey(d => d.GlcdriverNlgcid)
+            entity.HasOne(d => d.GlcdriverNavyInfo).WithMany(p => p.TGlcdriverInfos)
+                .HasForeignKey(d => d.GlcdriverNavyInfoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_T_NLGC_T_LGCDriver");
         });
@@ -153,10 +153,15 @@ public partial class Db_SmartRoutingContext : DbContext
             entity.Property(e => e.GlcnavyPelakIran).HasColumnName("GLCNavy_PelakIran");
             entity.Property(e => e.GlcnavyType).HasColumnName("GLCNavy_Type");
 
+            entity.HasOne(d => d.GlcnavyOwnerTypeNavigation).WithMany(p => p.TGlcnavyInfos)
+                .HasForeignKey(d => d.GlcnavyOwnerType)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_T_GLCNavyOwner_T_GLCNavyInfo1");
+
             entity.HasOne(d => d.GlcnavyTypeNavigation).WithMany(p => p.TGlcnavyInfos)
                 .HasForeignKey(d => d.GlcnavyType)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_T_Navgan_T_NLGC");
+                .HasConstraintName("FK_T_GLCNavyType_T_GLCNavyInfo1");
         });
 
         modelBuilder.Entity<TGlcnavyOwnerInfo>(entity =>
@@ -192,6 +197,16 @@ public partial class Db_SmartRoutingContext : DbContext
             entity.Property(e => e.GlcnavyTypeModel).HasColumnName("GLCNavyType_Model");
             entity.Property(e => e.GlcnavyTypeName).HasColumnName("GLCNavyType_Name");
             entity.Property(e => e.GlcnavyTypeWidth).HasColumnName("GLCNavyType_Width");
+
+            entity.HasOne(d => d.GlcnavyTypeFuelNavigation).WithMany(p => p.TGlcnavyTypeInfos)
+                .HasForeignKey(d => d.GlcnavyTypeFuel)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_T_GLCNavyFuel_T_GLCNavyTypeInfo");
+
+            entity.HasOne(d => d.GlcnavyTypeModelNavigation).WithMany(p => p.TGlcnavyTypeInfos)
+                .HasForeignKey(d => d.GlcnavyTypeModel)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_T_GLCNavyModel_T_GLCNavyTypeInfo");
         });
 
         modelBuilder.Entity<TGlcterminalInfo>(entity =>

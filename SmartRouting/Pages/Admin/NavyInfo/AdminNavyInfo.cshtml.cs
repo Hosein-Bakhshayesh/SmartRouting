@@ -81,6 +81,7 @@ namespace SmartRouting.Pages.Admin.NavyInfo
                 catch
                 {
                     ErrorMessage = "از این ناوگان در جای دیگر استفاده شده است و امکان جذف وجود ندارد.";
+                    LoadData();
                     return Page();
 
                 }

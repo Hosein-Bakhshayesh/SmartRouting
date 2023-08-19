@@ -19,5 +19,9 @@ public partial class TGlcnavyTypeInfo:BaseEntity
 
     public int GlcnavyTypeModel { get; set; }
 
+    public virtual TGlcfuelTypeInfo GlcnavyTypeFuelNavigation { get; set; } = null!;
+
+    public virtual TGlcnavyRoomTypeInfo GlcnavyTypeModelNavigation { get; set; } = null!;
+
     public virtual ICollection<TGlcnavyInfo> TGlcnavyInfos { get; set; } = new List<TGlcnavyInfo>();
 }

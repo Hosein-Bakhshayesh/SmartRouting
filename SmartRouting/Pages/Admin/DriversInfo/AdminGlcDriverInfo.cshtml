@@ -1,0 +1,171 @@
+﻿@page "/Admin/Drivers"
+@model SmartRouting.Pages.Admin.DriversInfo.AdminGlcDriverInfoModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "رانندگان شرکت لجستیک";
+    int i = 1;
+}
+
+<button id="AddNavyTypeBtn" type="button" class="btn btn-success btn-sm">
+    اضافه کردن راننده جدید
+</button>
+
+@if (Model.ErrorMessage != "")
+{
+    <div class="alert alert-danger mt-2" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
+<!-- The Modal -->
+<div class="modal fade" id="AddNavyTypeModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                اضافه کردن راننده جدید
+            </div>
+            <form asp-page-handler="AddOrEditDriverInfo" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDriver.GlcdriverNationalCode"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDriver.GlcdriverNationalCode" class="form-control" maxlength="10" min="10" />
+                                    <span asp-validation-for="AddDriver.GlcdriverNationalCode" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDriver.GlcdriverMobile"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDriver.GlcdriverMobile" class="form-control"/>
+                                    <span asp-validation-for="AddDriver.GlcdriverMobile" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDriver.GlcdriverName"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDriver.GlcdriverName" class="form-control" maxlength="10" min="10" />
+                                    <span asp-validation-for="AddDriver.GlcdriverName" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDriver.GlcdriverLastName"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDriver.GlcdriverLastName" class="form-control" />
+                                    <span asp-validation-for="AddDriver.GlcdriverLastName" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDriver.ImageFile"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDriver.ImageFile" class="form-control" />
+                                    <span asp-validation-for="AddDriver.ImageFile" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDriver.GlcdriverNavyInfoId"></label>
+                                </div>
+                                <div class="col-4">
+                                    <select asp-for="AddDriver.GlcdriverNavyInfoId">
+                                        @if(Model.glcnavyInfoViewModels != null)
+                                        {
+                                            @foreach (var item in Model.glcnavyInfoViewModels)
+                                            {
+                                                <option value="@item.GlcnavyInfoId">@item.GlcnavyPelakIran - @item.GlcnavyPelak3 - @item.GlcnavyPelakChar - @item.GlcnavyPelak2</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="AddDriver.GlcdriverNavyInfoId" class="text-danger"></span>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    @if (Model.IsEdit)
+                    {
+                        <button type="submit" class="btn btn-outline-warning">ویرایش</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
+                    }
+                    <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (Model.glcdriverInfoViewModels.Count > 0 || Model.glcdriverInfoViewModels != null)
+{
+    <table class="table table-sm table-bordered mt-3">
+        <thead class="thead-light">
+            <tr>
+                <td class="text-center fw-bold pt-2">شماره</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverInfoViewModels.First().GlcdriverNationalCode)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverInfoViewModels.First().GlcdriverLastName)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverInfoViewModels.First().GlcdriverLastName)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverInfoViewModels.First().GlcdriverMobile)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverInfoViewModels.First().GlcdriverPhotoPath)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverInfoViewModels.First().GlcdriverNavyInfoId)</td>
+                <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.glcdriverInfoViewModels)
+        {
+            <tbody>
+                <tr>
+                    <td class="text-center pt-4">
+                        @i
+                    </td>
+                    <td class="text-center pt-4">
+                        <span>@item.GlcdriverNationalCode</span>
+                    </td>
+                    <td class="text-center pt-4">@item.GlcdriverName</td>
+                    <td class="text-center pt-4">@item.GlcdriverLastName</td>
+                    <td class="text-center pt-4">@item.GlcdriverMobile</td>
+                    <td class="text-center">
+                        <img src="~/DriversImage/@item.GlcdriverPhotoPath" class="img-thumbnail" style="width:150px" asp-append-version="true" />
+                    </td>
+                    <td class="text-center pt-4">
+                        @Model._glcnavyTypeInfoServices.GetEntity(@Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyType).GlcnavyTypeName - ایران @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelakIran - @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelak3 - @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelakChar - @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelak2
+                    </td>
+                    <td class="row px-0 py-3 mx-0">
+                        <form asp-page-handler="DeleteDriverInfo" asp-route-id="@item.GlcdriverInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
+                        </form>
+                        <form asp-page-handler="EditDriverInfo" asp-route-id="@item.GlcdriverInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+            @if (true)
+            {
+                i++;
+            }
+        }
+    </table>
+}
+@if (Model.IsEdit)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            $('#AddNavyTypeModal').modal('show');
+        };
+    </script>
+}
+@section Scripts{
+    <script>
+        $('#Cancel').on('click', function () {
+            window.location.href = "/Admin/Drivers";
+        })
+    </script>
+}

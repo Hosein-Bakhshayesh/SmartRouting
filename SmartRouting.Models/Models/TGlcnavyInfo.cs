@@ -19,6 +19,8 @@ public partial class TGlcnavyInfo:BaseEntity
 
     public int GlcnavyOwnerType { get; set; }
 
+    public virtual TGlcnavyOwnerInfo GlcnavyOwnerTypeNavigation { get; set; } = null!;
+
     public virtual TGlcnavyTypeInfo GlcnavyTypeNavigation { get; set; } = null!;
 
     public virtual ICollection<TGlcdriverInfo> TGlcdriverInfos { get; set; } = new List<TGlcdriverInfo>();

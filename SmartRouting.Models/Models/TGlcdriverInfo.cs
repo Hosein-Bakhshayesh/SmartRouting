@@ -17,9 +17,9 @@ public partial class TGlcdriverInfo:BaseEntity
 
     public string? GlcdriverPhotoPath { get; set; }
 
-    public int GlcdriverNlgcid { get; set; }
+    public int GlcdriverNavyInfoId { get; set; }
 
-    public virtual TGlcnavyInfo GlcdriverNlgc { get; set; } = null!;
+    public virtual TGlcnavyInfo GlcdriverNavyInfo { get; set; } = null!;
 
     public virtual ICollection<TGlcdossierDetailInfo> TGlcdossierDetailInfos { get; set; } = new List<TGlcdossierDetailInfo>();
 
