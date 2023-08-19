@@ -138,10 +138,10 @@
                         @Model._glcnavyTypeInfoServices.GetEntity(@Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyType).GlcnavyTypeName - ایران @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelakIran - @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelak3 - @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelakChar - @Model._glcnavyInfoServices.GetEntity(item.GlcdriverNavyInfoId).GlcnavyPelak2
                     </td>
                     <td class="row px-0 py-3 mx-0">
-                        <form asp-page-handler="DeleteDriverInfo" asp-route-id="@item.GlcdriverInfoId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="DeleteDriverInfo" asp-route-id="@item.GlcdriverInfoId" method="post" class="col-12 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
                         </form>
-                        <form asp-page-handler="EditDriverInfo" asp-route-id="@item.GlcdriverInfoId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="EditDriverInfo" asp-route-id="@item.GlcdriverInfoId" method="post" class="col-12 mt-2 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
                         </form>
                     </td>
