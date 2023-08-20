@@ -23,7 +23,7 @@ public partial class TGlcdossierDetailInfo:BaseEntity
 
     public int DossierDetailQuantity { get; set; }
 
-    public int DossierDetailHour { get; set; }
+    public string DossierDetailHour { get; set; } = null!;
 
     public string DossierDetailType { get; set; } = null!;
 

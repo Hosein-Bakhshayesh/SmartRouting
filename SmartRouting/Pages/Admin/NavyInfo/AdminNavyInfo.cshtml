@@ -92,9 +92,9 @@
 
                                 <div class="col-3">
                                     <select asp-for="addNavy.GlcnavyPelakChar" class="form-select">
-                                        @for (int j = 'آ'; j <= 'ی'; j++)
+                                        @foreach (var item in Model._pelakCharServices.GetAll())
                                         {
-                                            <option value="@((char)j)">@((char)j)</option>
+                                            <option value="@item.PelkaCharChar">@item.PelkaCharChar</option>
                                         }
                                     </select>
                                     <span asp-validation-for="addNavy.GlcnavyPelakChar" class="text-danger"></span>

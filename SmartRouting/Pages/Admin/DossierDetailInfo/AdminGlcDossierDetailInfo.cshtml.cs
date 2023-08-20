@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartRouting.Models;
 using SmartRouting.Models.Context;
 using SmartRouting.Models.Models;
 using SmartRouting.Models.ViewModels;
@@ -20,6 +21,8 @@ namespace SmartRouting.Pages.Admin.DossierDetailInfo
         public List<TGlcdriverInfoViewModel>? glcdriverInfoViewModels { get; set; }
         [BindProperty]
         public TGlcdossierDetailInfoViewModel AddDsossierDetail { get; set; }
+        [BindProperty]
+        public ExcelUploadModel excelUploadModel { get; set; }
         public string ErrorMessage = "";
         public bool IsEdit;
         public int EditId;
@@ -30,6 +33,7 @@ namespace SmartRouting.Pages.Admin.DossierDetailInfo
             _glcdriverInfoServices = new TGlcdriverInfoServices(db);
             _glcdossierDetailInfoServices = new TGlcdossierDetailInfoServices(db);
             AddDsossierDetail = new TGlcdossierDetailInfoViewModel();
+            excelUploadModel = new ExcelUploadModel();
         }
         public void OnGet()
         {
@@ -113,6 +117,16 @@ namespace SmartRouting.Pages.Admin.DossierDetailInfo
             return Page();
         }
 
+        public ActionResult OnPostExcelUploadDossierDetail()
+        {
+            if(!ModelState.IsValid)
+            {
+                LoadData();
+                ErrorMessage = "لطفا فیلد ها را بدرستی پر کنید.";
+                return Page();
+            }
+            return Page();
+        }
         private void LoadData()
         {
             glcdossierDetailInfoViewModels = _mapper.Map<List<TGlcdossierDetailInfo>, List<TGlcdossierDetailInfoViewModel>>(_glcdossierDetailInfoServices.GetAll());

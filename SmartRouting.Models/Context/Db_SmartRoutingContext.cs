@@ -38,6 +38,8 @@ public partial class Db_SmartRoutingContext : DbContext
 
     public virtual DbSet<TGlcusersInfo> TGlcusersInfos { get; set; }
 
+    public virtual DbSet<TPelakChar> TPelakChars { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=10.127.11.113;Initial Catalog=Db_SmartRouting;User Id=h.bakhshayesh;Password=Hb09378149897;TrustServerCertificate=True;");
@@ -58,7 +60,9 @@ public partial class Db_SmartRoutingContext : DbContext
                 .HasColumnName("DossierDetail_CMobile");
             entity.Property(e => e.DossierDetailCustomer).HasColumnName("DossierDetail_Customer");
             entity.Property(e => e.DossierDetailDriverId).HasColumnName("DossierDetail_DriverID");
-            entity.Property(e => e.DossierDetailHour).HasColumnName("DossierDetail_Hour");
+            entity.Property(e => e.DossierDetailHour)
+                .HasMaxLength(50)
+                .HasColumnName("DossierDetail_Hour");
             entity.Property(e => e.DossierDetailLength).HasColumnName("DossierDetail_Length");
             entity.Property(e => e.DossierDetailNumber)
                 .HasMaxLength(50)
@@ -257,6 +261,18 @@ public partial class Db_SmartRoutingContext : DbContext
                 .HasForeignKey(d => d.GlcusersRoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_T_GLCUsersRoleInfo_T_GLCUsersInfo");
+        });
+
+        modelBuilder.Entity<TPelakChar>(entity =>
+        {
+            entity.HasKey(e => e.PelakCharId);
+
+            entity.ToTable("T_PelakChar");
+
+            entity.Property(e => e.PelakCharId).HasColumnName("PelakChar_ID");
+            entity.Property(e => e.PelkaCharChar)
+                .HasMaxLength(50)
+                .HasColumnName("PelkaChar_Char");
         });
 
         OnModelCreatingPartial(modelBuilder);

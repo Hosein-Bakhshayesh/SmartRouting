@@ -34,7 +34,7 @@ namespace SmartRouting.Models.ViewModels
         public int DossierDetailQuantity { get; set; }
         [Required(ErrorMessage = "فیلد {0} ضروری میباشد")]
         [DisplayName("ساعت")]
-        public int DossierDetailHour { get; set; }
+        public string DossierDetailHour { get; set; } = null!;
         [Required(ErrorMessage = "فیلد {0} ضروری میباشد")]
         [DisplayName("خدمت")]
         public string DossierDetailType { get; set; } = null!;

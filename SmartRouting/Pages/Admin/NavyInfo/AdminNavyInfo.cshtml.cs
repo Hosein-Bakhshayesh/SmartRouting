@@ -14,6 +14,7 @@ namespace SmartRouting.Pages.Admin.NavyInfo
         public TGlcnavyInfoServices _glcnavyInfoServices { get; set; }
         public TGlcnavyTypeInfoServices _glcnavyTypeInfoServices { get; set; }
         public TGlcnavyOwnerInfoServices _glcnavyOwnerInfoServices { get; set; }
+        public TPelakCharServices _pelakCharServices { get; set; }
         [BindProperty]
         public List<TGlcnavyInfoViewModel>? glcnavyInfoViewModels { get; set; }
         [BindProperty]
@@ -30,6 +31,7 @@ namespace SmartRouting.Pages.Admin.NavyInfo
             _glcnavyInfoServices = new TGlcnavyInfoServices(db);
             _glcnavyTypeInfoServices = new TGlcnavyTypeInfoServices(db);
             _glcnavyOwnerInfoServices = new TGlcnavyOwnerInfoServices(db);
+            _pelakCharServices = new TPelakCharServices(db);
             addNavy = new TGlcnavyInfoViewModel();
             _mapper = mapper;
         }
