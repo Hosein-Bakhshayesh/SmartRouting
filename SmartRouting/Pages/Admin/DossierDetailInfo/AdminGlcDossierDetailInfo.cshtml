@@ -145,7 +145,7 @@
                     {
                         <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
                     }
-                    <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
+                    <button type="button" class="btn btn-outline-danger Cancel">بستن</button>
                 </div>
             </form>
         </div>
@@ -253,7 +253,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-outline-success">آپلود</button>
-                    <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
+                    <button type="button" class="btn btn-outline-danger Cancel">بستن</button>
                 </div>
             </form>
         </div>
@@ -330,7 +330,7 @@
 
 @section Scripts{
     <script>
-        $('#Cancel').on('click', function () {
+        $('.Cancel').on('click', function () {
             window.location.href = "/Admin/DossierDetail";
         })
         $('#AddFromExcel').on('click',function(){
