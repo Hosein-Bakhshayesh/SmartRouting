@@ -99,12 +99,12 @@ namespace SmartRouting.Pages.Admin.DriversInfo
                     var ImageName = _glcdriverInfoServices.GetEntity(id).GlcdriverPhotoPath;
                     string uploadsFolder = Path.Combine(_env.ContentRootPath, "wwwroot", "DriversImage");
                     var filePath = Path.Combine(uploadsFolder, ImageName);
-                    if(System.IO.File.Exists(filePath))
+                    _glcdriverInfoServices.Delete(id);
+                    _glcdriverInfoServices.Save();
+                    if (System.IO.File.Exists(filePath))
                     {
                         System.IO.File.Delete(filePath);
                     }
-                    _glcdriverInfoServices.Delete(id);
-                    _glcdriverInfoServices.Save();
                     return RedirectToPage("AdminGlcDriverInfo");
                 }
                 catch

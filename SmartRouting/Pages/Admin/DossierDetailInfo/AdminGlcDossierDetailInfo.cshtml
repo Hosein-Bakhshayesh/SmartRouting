@@ -1,0 +1,224 @@
+﻿@page "/Admin/DossierDetail"
+@model SmartRouting.Pages.Admin.DossierDetailInfo.AdminGlcDossierDetailInfoModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "اطلاعات روزانه حواله‌ها";
+    int i = 1;
+}
+
+<button id="AddBtn" type="button" class="btn btn-success btn-sm">
+    اضافه کردن حواله جدید
+</button>
+
+@if (Model.ErrorMessage != "")
+{
+    <div class="alert alert-danger mt-2" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
+<!-- The Modal -->
+<div class="modal fade" id="AddModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                اضافه کردن حواله جدید
+            </div>
+            <form asp-page-handler="AddOrEditDossierDetail" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailNumber"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailNumber" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailNumber" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailCustomer"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailCustomer" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailCustomer" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailCmobile"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailCmobile" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailCmobile" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailCaddress"></label>
+                                </div>
+                                <div class="col-10">
+                                    <textarea asp-for="AddDsossierDetail.DossierDetailCaddress" class="form-control"></textarea>
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailCaddress" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailLength"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailLength" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailLength" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailWidth"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailWidth" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailWidth" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailProduct"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailProduct" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailProduct" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailQuantity"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailQuantity" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailQuantity" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailHour"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailHour" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailHour" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailType"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailType" class="form-control" />
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailType" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailDriverId"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailHour" class="form-control" />
+                                    <select asp-for="AddDsossierDetail.DossierDetailDriverId" class="form-select">
+                                        @if(Model.glcdriverInfoViewModels != null)
+                                        {
+                                            @foreach (var item in Model.glcdriverInfoViewModels)
+                                            {
+                                                <option value="@item.GlcdriverInfoId">@item.GlcdriverNationalCode</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailDriverId" class="text-danger"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    @if (Model.IsEdit)
+                    {
+                        <button type="submit" class="btn btn-outline-warning">ویرایش</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
+                    }
+                    <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (Model.glcdossierDetailInfoViewModels.Count > 0 || Model.glcdossierDetailInfoViewModels != null)
+{
+    <table class="table table-sm table-bordered mt-3">
+        <thead class="thead-light">
+            <tr>
+                <td class="text-center fw-bold pt-2">شماره</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailNumber)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailCustomer)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailCmobile)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailCaddress)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailLength)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailWidth)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailProduct)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailQuantity)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailHour)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailType)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdossierDetailInfoViewModels.First().DossierDetailDriverId)</td>
+                <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.glcdossierDetailInfoViewModels)
+        {
+
+            <tbody>
+                <tr>
+                    <td class="text-center pt-4">@i</td>
+                    <td class="text-center pt-4">@item.DossierDetailNumber</td>
+                    <td class="text-center pt-4">@item.DossierDetailCustomer</td>
+                    <td class="text-center pt-4">@item.DossierDetailCmobile</td>
+                    <td class="text-center pt-4">@item.DossierDetailCaddress</td>
+                    <td class="text-center pt-4">@item.DossierDetailLength</td>
+                    <td class="text-center pt-4">@item.DossierDetailWidth</td>
+                    <td class="text-center pt-4">@item.DossierDetailProduct</td>
+                    <td class="text-center pt-4">@item.DossierDetailQuantity</td>
+                    <td class="text-center pt-4">@item.DossierDetailHour</td>
+                    <td class="text-center pt-4">@item.DossierDetailType</td>
+                    <td class="text-center pt-4">
+                        @if (Model.glcdriverInfoViewModels != null)
+                        {
+                            @Model._glcdriverInfoServices.GetEntity(item.DossierDetailDriverId).GlcdriverNationalCode
+                        }
+                    </td>
+                    <td class="row px-0 py-3 mx-0">
+                        <form asp-page-handler="DeleteDossierDetail" asp-route-id="@item.GlcdossierDetailInfoId" method="post" class="col-12 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
+                        </form>
+                        <form asp-page-handler="EditDossierDetail" asp-route-id="@item.GlcdossierDetailInfoId" method="post" class="col-12 mt-2 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+            @if (true)
+            {
+                i++;
+            }
+        }
+    </table>
+}
+@if (Model.IsEdit)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            $('#AddModal').modal('show');
+        };
+    </script>
+}
+
+@section Scripts{
+    <script>
+        $('#Cancel').on('click', function () {
+            window.location.href = "/Admin/DossierDetail";
+        })
+    </script>
+}
+

@@ -28,6 +28,8 @@ namespace SmartRouting.Models
             CreateMap<TGlcuserRoleInfoViewModel, TGlcuserRoleInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             CreateMap<TGlcusersInfo, TGlcusersInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             CreateMap<TGlcusersInfoViewModel, TGlcusersInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcdossierDetailInfo, TGlcdossierDetailInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcdossierDetailInfoViewModel, TGlcdossierDetailInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
         }
     }
 }
