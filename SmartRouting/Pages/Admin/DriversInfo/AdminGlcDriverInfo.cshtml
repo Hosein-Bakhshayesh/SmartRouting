@@ -6,7 +6,7 @@
     int i = 1;
 }
 
-<button id="AddNavyTypeBtn" type="button" class="btn btn-success btn-sm">
+<button id="AddBtn" type="button" class="btn btn-success btn-sm">
     اضافه کردن راننده جدید
 </button>
 
@@ -17,7 +17,7 @@
     </div>
 }
 <!-- The Modal -->
-<div class="modal fade" id="AddNavyTypeModal" role="dialog">
+<div class="modal fade" id="AddModal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -71,7 +71,7 @@
                                     <label asp-for="AddDriver.GlcdriverNavyInfoId"></label>
                                 </div>
                                 <div class="col-4">
-                                    <select asp-for="AddDriver.GlcdriverNavyInfoId">
+                                    <select asp-for="AddDriver.GlcdriverNavyInfoId" class="form-select">
                                         @if(Model.glcnavyInfoViewModels != null)
                                         {
                                             @foreach (var item in Model.glcnavyInfoViewModels)
@@ -158,7 +158,7 @@
 {
     <script type="text/javascript">
         window.onload = function () {
-            $('#AddNavyTypeModal').modal('show');
+            $('#AddModal').modal('show');
         };
     </script>
 }

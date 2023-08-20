@@ -34,6 +34,8 @@ public partial class Db_SmartRoutingContext : DbContext
 
     public virtual DbSet<TGlcterminalInfo> TGlcterminalInfos { get; set; }
 
+    public virtual DbSet<TGlcuserRoleInfo> TGlcuserRoleInfos { get; set; }
+
     public virtual DbSet<TGlcusersInfo> TGlcusersInfos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -104,15 +106,17 @@ public partial class Db_SmartRoutingContext : DbContext
 
             entity.ToTable("T_GLCDriverShiftInfo");
 
-            entity.Property(e => e.GlcdriverShiftInfoId)
-                .ValueGeneratedNever()
-                .HasColumnName("GLCDriverShiftInfo_ID");
-            entity.Property(e => e.GlcdriverShiftBeginHour).HasColumnName("GLCDriverShift_BeginHour");
+            entity.Property(e => e.GlcdriverShiftInfoId).HasColumnName("GLCDriverShiftInfo_ID");
+            entity.Property(e => e.GlcdriverShiftBeginHour)
+                .HasMaxLength(50)
+                .HasColumnName("GLCDriverShift_BeginHour");
             entity.Property(e => e.GlcdriverShiftDay)
-                .HasColumnType("date")
+                .HasMaxLength(50)
                 .HasColumnName("GLCDriverShift_Day");
             entity.Property(e => e.GlcdriverShiftDriverId).HasColumnName("GLCDriverShift_DriverID");
-            entity.Property(e => e.GlcdriverShiftEndHour).HasColumnName("GLCDriverShift_EndHour");
+            entity.Property(e => e.GlcdriverShiftEndHour)
+                .HasMaxLength(50)
+                .HasColumnName("GLCDriverShift_EndHour");
             entity.Property(e => e.GlcdriverShiftTerminalId).HasColumnName("GLCDriverShift_TerminalID");
 
             entity.HasOne(d => d.GlcdriverShiftDriver).WithMany(p => p.TGlcdriverShiftInfos)
@@ -220,6 +224,16 @@ public partial class Db_SmartRoutingContext : DbContext
             entity.Property(e => e.GlcterminalName).HasColumnName("GLCTerminal_Name");
         });
 
+        modelBuilder.Entity<TGlcuserRoleInfo>(entity =>
+        {
+            entity.HasKey(e => e.GlcuserRoleInfoId);
+
+            entity.ToTable("T_GLCUserRoleInfo");
+
+            entity.Property(e => e.GlcuserRoleInfoId).HasColumnName("GLCUserRoleInfo_ID");
+            entity.Property(e => e.GlcuserRoleName).HasColumnName("GLCUserRole_Name");
+        });
+
         modelBuilder.Entity<TGlcusersInfo>(entity =>
         {
             entity.HasKey(e => e.GlcusersInfoId).HasName("PK_T_LGCUser");
@@ -237,9 +251,12 @@ public partial class Db_SmartRoutingContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("GLCUsers_NationalCode");
-            entity.Property(e => e.GlcusersType)
-                .HasMaxLength(50)
-                .HasColumnName("GLCUsers_Type");
+            entity.Property(e => e.GlcusersRoleId).HasColumnName("GLCUsers_RoleID");
+
+            entity.HasOne(d => d.GlcusersRole).WithMany(p => p.TGlcusersInfos)
+                .HasForeignKey(d => d.GlcusersRoleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_T_GLCUsersRoleInfo_T_GLCUsersInfo");
         });
 
         OnModelCreatingPartial(modelBuilder);

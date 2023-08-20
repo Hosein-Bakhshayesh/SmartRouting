@@ -1,0 +1,157 @@
+﻿@page "/Admin/Users"
+@model SmartRouting.Pages.Admin.UserInfo.AdminGlcusersInfoModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "کاربران";
+    int i = 1;
+}
+<button id="AddBtn" type="button" class="btn btn-success btn-sm">
+    اضافه کردن کاربر جدید
+</button>
+
+@if (Model.ErrorMessage != "")
+{
+    <div class="alert alert-danger mt-2" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
+<!-- The Modal -->
+<div class="modal fade" id="AddModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                اضافه کردن کاربر جدید
+            </div>
+            <form asp-page-handler="AddOrEditUser" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddUser.GlcusersNationalCode"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddUser.GlcusersNationalCode" class="form-control" />
+                                    <span asp-validation-for="AddUser.GlcusersNationalCode" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddUser.GlcusersMobile"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddUser.GlcusersMobile" class="form-control" />
+                                    <span asp-validation-for="AddUser.GlcusersMobile" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddUser.GlcusersName"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddUser.GlcusersName" class="form-control" />
+                                    <span asp-validation-for="AddUser.GlcusersName" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddUser.GlcusersLastName"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddUser.GlcusersLastName" class="form-control" />
+                                    <span asp-validation-for="AddUser.GlcusersLastName" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddUser.GlcusersRoleId"></label>
+                                </div>
+                                <div class="col-4">
+                                    <select asp-for="AddUser.GlcusersRoleId" class="form-select">
+                                        @if(Model.glcuserRoleInfoViewModels != null)
+                                        {
+                                            @foreach (var Role in Model.glcuserRoleInfoViewModels)
+                                            {
+                                                <option value="@Role.GlcuserRoleInfoId">@Role.GlcuserRoleName</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="AddUser.GlcusersRoleId" class="text-danger"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    @if (Model.IsEdit)
+                    {
+                        <button type="submit" class="btn btn-outline-warning">ویرایش</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
+                    }
+                    <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (Model.glcusersInfoViewModels.Count > 0 || Model.glcusersInfoViewModels != null)
+{
+    <table class="table table-sm table-bordered mt-3">
+        <thead class="thead-light">
+            <tr>
+                <td class="text-center fw-bold pt-2">شماره</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcusersInfoViewModels.First().GlcusersNationalCode)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcusersInfoViewModels.First().GlcusersName)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcusersInfoViewModels.First().GlcusersLastName)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcusersInfoViewModels.First().GlcusersMobile)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcusersInfoViewModels.First().GlcusersRoleId)</td>
+                <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.glcusersInfoViewModels)
+        {
+
+            <tbody>
+                <tr>
+                    <td class="text-center pt-4">@i</td>
+                    <td class="text-center pt-4">@item.GlcusersNationalCode</td>
+                    <td class="text-center pt-4">@item.GlcusersName</td>
+                    <td class="text-center pt-4">@item.GlcusersLastName</td>
+                    <td class="text-center pt-4">@item.GlcusersMobile</td>
+                    <td class="text-center pt-4">
+                        @Model._glcuserRoleInfoServices.GetEntity(@item.GlcusersRoleId).GlcuserRoleName
+                    </td>
+                    <td class="row px-0 py-3 mx-0">
+                        <form asp-page-handler="DeleteUser" asp-route-id="@item.GlcusersInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
+                        </form>
+                        <form asp-page-handler="EditUser" asp-route-id="@item.GlcusersInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+            @if (true)
+            {
+                i++;
+            }
+        }
+    </table>
+}
+@if (Model.IsEdit)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            $('#AddModal').modal('show');
+        };
+    </script>
+}
+
+@section Scripts{
+    <script>
+        $('#Cancel').on('click', function () {
+            window.location.href = "/Admin/Users";
+        })
+    </script>
+}
+

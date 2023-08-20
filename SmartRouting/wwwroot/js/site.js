@@ -1,5 +1,5 @@
-﻿$('#AddNavyTypeBtn').on("click", function () {
-    $('#AddNavyTypeModal').modal('show');
+﻿$('#AddBtn').on("click", function () {
+    $('#AddModal').modal('show');
 })
 
 $('#Cancel').on("click", function () {

@@ -7,13 +7,13 @@ public partial class TGlcdriverShiftInfo:BaseEntity
 {
     public int GlcdriverShiftInfoId { get; set; }
 
-    public DateTime GlcdriverShiftDay { get; set; }
+    public string GlcdriverShiftDay { get; set; } = null!;
 
     public int GlcdriverShiftDriverId { get; set; }
 
-    public int GlcdriverShiftBeginHour { get; set; }
+    public string GlcdriverShiftBeginHour { get; set; } = null!;
 
-    public int GlcdriverShiftEndHour { get; set; }
+    public string GlcdriverShiftEndHour { get; set; } = null!;
 
     public int GlcdriverShiftTerminalId { get; set; }
 

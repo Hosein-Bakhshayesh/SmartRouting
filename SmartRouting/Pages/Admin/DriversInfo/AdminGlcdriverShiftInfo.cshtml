@@ -1,0 +1,175 @@
+﻿@page "/Admin/DriverShift"
+@model SmartRouting.Pages.Admin.DriversInfo.AdminGlcdriverShiftInfoModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "شیفت کاری رانندگان";
+    int i = 1;
+}
+
+
+<button id="AddBtn" type="button" class="btn btn-success btn-sm">
+    اضافه کردن شیفت کاری جدید
+</button>
+
+@if (Model.ErrorMessage != "")
+{
+    <div class="alert alert-danger mt-2" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
+<!-- The Modal -->
+<div class="modal fade" id="AddModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                اضافه کردن شیفت کاری جدید
+            </div>
+            <form asp-page-handler="AddOrEditDriverShiftInfo" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddShift.GlcdriverShiftDay"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddShift.GlcdriverShiftDay" class="form-control" id="ShiftDay" autocomplete="off" />
+                                    <span asp-validation-for="AddShift.GlcdriverShiftDay" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddShift.GlcdriverShiftDriverId"></label>
+                                </div>
+                                <div class="col-4">
+                                    <select asp-for="AddShift.GlcdriverShiftDriverId" class="form-select">
+                                        @if (Model.glcdriverInfoViewModels != null)
+                                        {
+                                            @foreach (var Driver in Model.glcdriverInfoViewModels)
+                                            {
+                                                <option value="@Driver.GlcdriverInfoId">@Driver.GlcdriverName @Driver.GlcdriverLastName</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="AddShift.GlcdriverShiftDriverId" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddShift.GlcdriverShiftBeginHour"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input type="time" asp-for="AddShift.GlcdriverShiftBeginHour" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="AddShift.GlcdriverShiftBeginHour" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddShift.GlcdriverShiftEndHour"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddShift.GlcdriverShiftEndHour" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="AddShift.GlcdriverShiftEndHour" class="text-danger"></span>
+                                </div>
+                            </td>
+                            <td class="row">
+                                <div class="col-2">
+                                    <label asp-for="AddShift.GlcdriverShiftTerminalId"></label>
+                                </div>
+                                <div class="col-4">
+                                    <select asp-for="AddShift.GlcdriverShiftTerminalId" class="form-select">
+                                        @if (Model.glcterminalInfoViewModels != null)
+                                        {
+                                            @foreach (var Terminal in Model.glcterminalInfoViewModels)
+                                            {
+                                                <option value="@Terminal.GlcterminalInfoId">@Terminal.GlcterminalName</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="AddShift.GlcdriverShiftTerminalId" class="text-danger"></span>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    @if (Model.IsEdit)
+                    {
+                        <button type="submit" class="btn btn-outline-warning">ویرایش</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-success">اضافه کردن</button>
+                    }
+                    <button type="button" id="Cancel" class="btn btn-outline-danger">بستن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (Model.glcdriverShiftInfoViewModels.Count > 0 || Model.glcdriverShiftInfoViewModels != null)
+{
+    <table class="table table-sm table-bordered mt-3">
+        <thead class="thead-light">
+            <tr>
+                <td class="text-center fw-bold pt-2">شماره</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverShiftInfoViewModels.First().GlcdriverShiftDay)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverShiftInfoViewModels.First().GlcdriverShiftDriverId)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverShiftInfoViewModels.First().GlcdriverShiftBeginHour)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverShiftInfoViewModels.First().GlcdriverShiftEndHour)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcdriverShiftInfoViewModels.First().GlcdriverShiftTerminalId)</td>
+                <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.glcdriverShiftInfoViewModels)
+        {
+            <tbody>
+                <tr>
+                    <td class="text-center pt-4">
+                        @i
+                    </td>
+                    <td class="text-center pt-4">
+                        <span>@item.GlcdriverShiftDay</span>
+                    </td>
+                    <td class="text-center pt-4">
+                        @Model._glcdriverInfoServices.GetEntity(@item.GlcdriverShiftDriverId).GlcdriverName @Model._glcdriverInfoServices.GetEntity(@item.GlcdriverShiftDriverId).GlcdriverLastName
+                    </td>
+                    <td class="text-center pt-4">@item.GlcdriverShiftBeginHour</td>
+                    <td class="text-center pt-4">@item.GlcdriverShiftEndHour</td>
+                    <td class="text-center pt-4">
+                        @Model._glcterminalInfoServices.GetEntity(item.GlcdriverShiftTerminalId).GlcterminalName
+                    </td>
+                    <td class="row px-0 py-3 mx-0">
+                        <form asp-page-handler="DeleteDriverShiftInfo" asp-route-id="@item.GlcdriverShiftInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
+                        </form>
+                        <form asp-page-handler="EditDriverShiftInfo" asp-route-id="@item.GlcdriverShiftInfoId" method="post" class="col-6 px-0 text-center">
+                            <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+            @if(true)
+            {
+                i++;
+            }
+        }
+    </table>
+}
+@if (Model.IsEdit)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            $('#AddModal').modal('show');
+        };
+    </script>
+}
+@section Scripts{
+    <script src="~/js/persiandatepicker.min.js"></script>
+    <script>
+        $('#Cancel').on('click', function () {
+            window.location.href = "/Admin/DriverShift";
+        })
+        $(function () {
+            $("#ShiftDay").persianDatepicker();
+        });
+    </script>
+}

@@ -1,13 +1,13 @@
-﻿@page "/Admin/NavyOwner"
-@model SmartRouting.Pages.Admin.NavyInfo.AdminNavyOwnerInfoModel
+﻿@page "/Admin/TerminalInfo"
+@model SmartRouting.Pages.Admin.DriversInfo.AdminTerminalInfoModel
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "نوع مالکیت ناوگان";
+    ViewData["Title"] = "محل خدمت رانندگان شرکت لجستیک";
     int i = 1;
 }
 
 <button id="AddBtn" type="button" class="btn btn-success btn-sm">
-    اضافه کردن نوع مالکیت جدید
+    اضافه کردن پایانه جدید
 </button>
 
 @if (Model.ErrorMessage != "")
@@ -21,19 +21,26 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                اضافه کردن نوع مالکیت ناوگان جدید
+                اضافه کردن پایانه جدید
             </div>
-            <form asp-page-handler="AddOrEditNavyOwner" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+            <form asp-page-handler="AddOrEditTerminalInfo" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
                 <div class="modal-body">
                     <table class="table">
                         <tr>
                             <td class="row">
                                 <div class="col-2">
-                                    <label asp-for="addOwner.GlcnavyOwnerName"></label>
+                                    <label asp-for="AddTerminal.GlcterminalId"></label>
                                 </div>
-                                <div class="col-10">
-                                    <input asp-for="addOwner.GlcnavyOwnerName" class="form-control" />
-                                    <span asp-validation-for="addOwner.GlcnavyOwnerName" class="text-danger"></span>
+                                <div class="col-4">
+                                    <input asp-for="AddTerminal.GlcterminalId" class="form-control"/>
+                                    <span asp-validation-for="AddTerminal.GlcterminalId" class="text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="AddTerminal.GlcterminalName"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddTerminal.GlcterminalName" class="form-control" />
+                                    <span asp-validation-for="AddTerminal.GlcterminalName" class="text-danger"></span>
                                 </div>
                             </td>
                         </tr>
@@ -56,18 +63,18 @@
     </div>
 </div>
 
-@if (Model.glcnavyOwnerInfoViewModels.Count > 0 || Model.glcnavyOwnerInfoViewModels != null)
+@if (Model.glcterminalInfoViewModels.Count > 0 || Model.glcterminalInfoViewModels != null)
 {
     <table class="table table-sm table-bordered mt-3">
         <thead class="thead-light">
             <tr>
                 <td class="text-center fw-bold pt-2">شماره</td>
-                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcnavyOwnerInfoViewModels.First().GlcnavyOwnerName)</td>
-
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcterminalInfoViewModels.First().GlcterminalId)</td>
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcterminalInfoViewModels.First().GlcterminalName)</td>
                 <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
             </tr>
         </thead>
-        @foreach (var item in Model.glcnavyOwnerInfoViewModels)
+        @foreach (var item in Model.glcterminalInfoViewModels)
         {
             <tbody>
                 <tr>
@@ -75,15 +82,14 @@
                         @i
                     </td>
                     <td class="text-center pt-4">
-
-                        <span>@item.GlcnavyOwnerName</span>
-
+                        <span>@item.GlcterminalId</span>
                     </td>
+                    <td class="text-center pt-4">@item.GlcterminalName</td>
                     <td class="row px-0 py-3 mx-0">
-                        <form asp-page-handler="DeleteNavyOwner" asp-route-id="@item.GlcnavyOwnerId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="DeleteTerminalInfo" asp-route-id="@item.GlcterminalInfoId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
                         </form>
-                        <form asp-page-handler="EditNavyOwner" asp-route-id="@item.GlcnavyOwnerId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="EditTerminalInfo" asp-route-id="@item.GlcterminalInfoId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
                         </form>
                     </td>
@@ -107,7 +113,7 @@
 @section Scripts{
     <script>
         $('#Cancel').on('click', function () {
-            window.location.href = "/Admin/NavyOwner";
+            window.location.href = "/Admin/TerminalInfo";
         })
     </script>
 }

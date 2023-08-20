@@ -20,6 +20,14 @@ namespace SmartRouting.Models
             CreateMap<TGlcnavyOwnerInfoViewModel, TGlcnavyOwnerInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             CreateMap<TGlcdriverInfo, TGlcdriverInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             CreateMap<TGlcdriverInfoViewModel, TGlcdriverInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcterminalInfo, TGlcterminalInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcterminalInfoViewModel, TGlcterminalInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcdriverShiftInfo, TGlcdriverShiftInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcdriverShiftInfoViewModel, TGlcdriverShiftInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcuserRoleInfo, TGlcuserRoleInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcuserRoleInfoViewModel, TGlcuserRoleInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcusersInfo, TGlcusersInfoViewModel>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<TGlcusersInfoViewModel, TGlcusersInfo>().IgnoreAllPropertiesWithAnInaccessibleSetter();
         }
     }
 }

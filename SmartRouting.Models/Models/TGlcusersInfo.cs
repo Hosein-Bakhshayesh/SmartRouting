@@ -15,5 +15,7 @@ public partial class TGlcusersInfo:BaseEntity
 
     public string GlcusersMobile { get; set; } = null!;
 
-    public string GlcusersType { get; set; } = null!;
+    public int GlcusersRoleId { get; set; }
+
+    public virtual TGlcuserRoleInfo GlcusersRole { get; set; } = null!;
 }

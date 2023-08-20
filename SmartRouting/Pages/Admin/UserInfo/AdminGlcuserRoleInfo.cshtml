@@ -1,13 +1,12 @@
-﻿@page "/Admin/NavyOwner"
-@model SmartRouting.Pages.Admin.NavyInfo.AdminNavyOwnerInfoModel
+﻿@page "/Admin/UserRoles"
+@model SmartRouting.Pages.Admin.UserInfo.AdminGlcuserRoleInfoModel
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "نوع مالکیت ناوگان";
+    ViewData["Title"] = "نقش کاربران";
     int i = 1;
 }
-
 <button id="AddBtn" type="button" class="btn btn-success btn-sm">
-    اضافه کردن نوع مالکیت جدید
+    اضافه کردن نقش جدید
 </button>
 
 @if (Model.ErrorMessage != "")
@@ -21,23 +20,22 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                اضافه کردن نوع مالکیت ناوگان جدید
+                اضافه کردن نقش جدید
             </div>
-            <form asp-page-handler="AddOrEditNavyOwner" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+            <form asp-page-handler="AddOrEditUserRole" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
                 <div class="modal-body">
                     <table class="table">
                         <tr>
                             <td class="row">
-                                <div class="col-2">
-                                    <label asp-for="addOwner.GlcnavyOwnerName"></label>
+                                <div class="col-4">
+                                    <label asp-for="AddRole.GlcuserRoleName"></label>
                                 </div>
-                                <div class="col-10">
-                                    <input asp-for="addOwner.GlcnavyOwnerName" class="form-control" />
-                                    <span asp-validation-for="addOwner.GlcnavyOwnerName" class="text-danger"></span>
+                                <div class="col-8">
+                                    <input asp-for="AddRole.GlcuserRoleName" class="form-control" />
+                                    <span asp-validation-for="AddRole.GlcuserRoleName" class="text-danger"></span>
                                 </div>
                             </td>
                         </tr>
-
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -56,34 +54,28 @@
     </div>
 </div>
 
-@if (Model.glcnavyOwnerInfoViewModels.Count > 0 || Model.glcnavyOwnerInfoViewModels != null)
+@if (Model.glcuserRoleInfoViewModels.Count > 0 || Model.glcuserRoleInfoViewModels != null)
 {
     <table class="table table-sm table-bordered mt-3">
         <thead class="thead-light">
             <tr>
                 <td class="text-center fw-bold pt-2">شماره</td>
-                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcnavyOwnerInfoViewModels.First().GlcnavyOwnerName)</td>
-
+                <td class="text-center fw-bold pt-2">@Html.LabelFor(model => Model.glcuserRoleInfoViewModels.First().GlcuserRoleName)</td>
                 <td class="text-center fw-bold pt-2">حذف و ویرایش</td>
             </tr>
         </thead>
-        @foreach (var item in Model.glcnavyOwnerInfoViewModels)
+        @foreach (var item in Model.glcuserRoleInfoViewModels)
         {
+
             <tbody>
                 <tr>
-                    <td class="text-center pt-4">
-                        @i
-                    </td>
-                    <td class="text-center pt-4">
-
-                        <span>@item.GlcnavyOwnerName</span>
-
-                    </td>
+                    <td class="text-center pt-4">@i</td>
+                    <td class="text-center pt-4">@item.GlcuserRoleName</td>
                     <td class="row px-0 py-3 mx-0">
-                        <form asp-page-handler="DeleteNavyOwner" asp-route-id="@item.GlcnavyOwnerId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="DeleteUserRole" asp-route-id="@item.GlcuserRoleInfoId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-danger DeleteNavyTypeModalBtn w-75 my-2">حذف</button>
                         </form>
-                        <form asp-page-handler="EditNavyOwner" asp-route-id="@item.GlcnavyOwnerId" method="post" class="col-6 px-0 text-center">
+                        <form asp-page-handler="EditUserRole" asp-route-id="@item.GlcuserRoleInfoId" method="post" class="col-6 px-0 text-center">
                             <button type="submit" class="btn btn-sm btn-outline-warning EditNavyTypeBtn w-75 my-2">ویرایش</button>
                         </form>
                     </td>
@@ -104,10 +96,12 @@
         };
     </script>
 }
+
 @section Scripts{
     <script>
         $('#Cancel').on('click', function () {
-            window.location.href = "/Admin/NavyOwner";
+            window.location.href = "/Admin/UserRoles";
         })
     </script>
 }
+

@@ -8,18 +8,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-rtl.min.css" />
     <link rel="stylesheet" href="~/SmartRouting.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Admin.css" />
+    <link href="~/css/persiandatepicker-default.css" rel="stylesheet" />
 </head>
 <body class="rtl">
     <div>
         <nav id="navbar">
             <div class="pt-4">
-                <div><a href="/Admin" class="text-black B-Nav btn text-decoration-none">داشبورد</a></div>
-                <div><a href="/Admin/NavyFuel" class="text-black B-Nav btn text-decoration-none">نوع سوخت ناوگان</a></div>
-                <div><a href="/Admin/NavyRoom" class="text-black B-Nav btn text-decoration-none">نوع اتاق ناوگان</a></div>
-                <div><a href="/Admin/NavyType" class="text-black B-Nav btn text-decoration-none">نوع ناوگان</a></div>
-                <div><a href="/Admin/NavyOwner" class="text-black B-Nav btn text-decoration-none">نوع مالکیت ناوگان</a></div>
-                <div><a href="/Admin/NavyInfo" class="text-black B-Nav btn text-decoration-none">ناوگان</a></div>
-                <div><a href="/Admin/Drivers" class="text-black B-Nav btn text-decoration-none">رانندگان شرکت لجستیک</a></div>
+                <div class="my-1"><a href="/Admin" class="text-black B-Nav btn text-decoration-none">داشبورد</a></div>
+                <div class="my-1"><a href="/Admin/NavyFuel" class="text-black B-Nav btn text-decoration-none">نوع سوخت ناوگان</a></div>
+                <div class="my-1"><a href="/Admin/NavyRoom" class="text-black B-Nav btn text-decoration-none">نوع اتاق ناوگان</a></div>
+                <div class="my-1"><a href="/Admin/NavyType" class="text-black B-Nav btn text-decoration-none">نوع ناوگان</a></div>
+                <div class="my-1"><a href="/Admin/NavyOwner" class="text-black B-Nav btn text-decoration-none">نوع مالکیت ناوگان</a></div>
+                <div class="my-1"><a href="/Admin/NavyInfo" class="text-black B-Nav btn text-decoration-none">ناوگان</a></div>
+                <div class="my-1"><a href="/Admin/Drivers" class="text-black B-Nav btn text-decoration-none">رانندگان شرکت لجستیک</a></div>
+                <div class="my-1"><a href="/Admin/TerminalInfo" class="text-black B-Nav btn text-decoration-none">محل خدمت رانندگان</a></div>
+                <div class="my-1"><a href="/Admin/DriverShift" class="text-black B-Nav btn text-decoration-none">شیفت کاری رانندگان</a></div>
+                <div class="my-1"><a href="/Admin/UserRoles" class="text-black B-Nav btn text-decoration-none">نقش کاربران</a></div>
+                <div class="my-1"><a href="/Admin/Users" class="text-black B-Nav btn text-decoration-none">کاربران</a></div>
+                <div class="my-1"><a href="/Admin/Shipping" class="text-black B-Nav btn text-decoration-none">اطلاعات روزانه حواله‌ها</a></div>
 
             </div>
         </nav>
@@ -34,9 +40,11 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/Admin.js" asp-append-version="true"></script>s
+    <script src="~/js/Admin.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script>
+        $('collapse').collapse('show');
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
