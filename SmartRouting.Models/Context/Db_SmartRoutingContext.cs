@@ -59,6 +59,10 @@ public partial class Db_SmartRoutingContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("DossierDetail_CMobile");
             entity.Property(e => e.DossierDetailCustomer).HasColumnName("DossierDetail_Customer");
+            entity.Property(e => e.DossierDetailDateTime)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DossierDetail_DateTime");
             entity.Property(e => e.DossierDetailDriverId).HasColumnName("DossierDetail_DriverID");
             entity.Property(e => e.DossierDetailHour)
                 .HasMaxLength(50)

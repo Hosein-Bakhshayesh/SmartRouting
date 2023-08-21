@@ -14,13 +14,32 @@
         <button id="AddFromExcel" type="button" class="btn btn-primary btn-sm">
             آپلود فایل اکسل
         </button>
+        <form asp-page-handler="DeleteAllRows" class="d-inline">
+            <button id="DeleteAllRows" type="submit" class="btn btn-danger btn-sm">
+                حذف تمامی آدرس‌ها
+            </button>
+        </form>
+        <form asp-page-handler="ShowOnMap" class="d-inline">
+            <button id="ShowOnMap" type="submit" class="btn btn-info btn-sm">
+                نمایش آدرس ها برروی نقشه
+            </button>
+        </form>
     </div>
 </div>
 
-@if (Model.ErrorMessage != "")
+@if (Model.ErrorMessage.Count > 0)
 {
     <div class="alert alert-danger mt-2" role="alert">
-        @Model.ErrorMessage
+        @foreach (var item in Model.ErrorMessage)
+        {
+            <span>@item</span><br />
+        }
+    </div>
+}
+@if (Model.SuccessMessage != "")
+{
+    <div class="alert alert-success mt-2" role="alert">
+        @Model.SuccessMessage
     </div>
 }
 <!-- The Add Modal -->
@@ -30,7 +49,7 @@
             <div class="modal-header">
                 اضافه کردن حواله جدید
             </div>
-            <form asp-page-handler="AddOrEditDossierDetail" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
+            <form asp-page-handler="AddOrEditDossierDetail" model="@Model.AddDsossierDetail" asp-route-isEdit="@Model.IsEdit" asp-route-id="@Model.EditId" method="post">
                 <div class="modal-body">
                     <table class="table">
                         <tr>
@@ -132,6 +151,13 @@
                                     </select>
                                     <span asp-validation-for="AddDsossierDetail.DossierDetailDriverId" class="text-danger"></span>
                                 </div>
+                                <div class="col-2">
+                                    <label asp-for="AddDsossierDetail.DossierDetailDateTime" class="form-lable"></label>
+                                </div>
+                                <div class="col-4">
+                                    <input asp-for="AddDsossierDetail.DossierDetailDateTime" class="form-control" autocomplete="off" id="DossierDateilDateTime"/>
+                                    <span asp-validation-for="AddDsossierDetail.DossierDetailDateTime" class="text-danger"></span>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -159,94 +185,116 @@
             <div class="modal-header">
                 آپلود فایل اکسل
             </div>
-            <form asp-page-handler="ExcelUploadDossierDetail" method="post" enctype="multipart/form-data">
+            <form asp-page-handler="ExcelUploadDossierDetail" model="@Model.excelUploadModel" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <table class="table">
                         <tr class="row">
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.ExcelFile" class="form-label"></label>
                             </td>
-                            <td class="col">
+                            <td class="col-4">
                                 <input asp-for="excelUploadModel.ExcelFile" class="form-control" />
                                 <span asp-validation-for="excelUploadModel.ExcelFile" class="text-danger"></span>
                             </td>
+                            <td class="col-2">
+                                <label asp-for="excelUploadModel.Exce_DossierDetailDateTime" class="form-label"></label>
+                            </td>
+                            <td class="col-4">
+                                <input asp-for="excelUploadModel.Exce_DossierDetailDateTime" class="form-control" id="ExcelDateTime" autocomplete="off"/>
+                                <span asp-validation-for="excelUploadModel.Exce_DossierDetailDateTime" class="text-danger"></span>
+                            </td>
                         </tr>
                         <tr class="row">
+                            <td>
+                                <p class="text-info" style="cursor:pointer" id="MoreOptionUploadBtn">
+                                    تنظیمات ستون های اکسل &crarr;
+                                </p>
+                            </td>
+                        </tr>
+                        <tr id="MoreOptionUpload" class="row" style="display:none;transition-duration:.3s">
+                            <td class="col-12">
+                                <div class="alert alert-danger mt-2" role="alert">
+                                    تنها در صورت نیاز، تنظیمات پیشفرض را تغییر دهید.
+                                </div>
+                            </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailNumber" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailNumber" class="form-control" value="1"/>
+                                <input asp-for="excelUploadModel.Excel_DossierDetailNumber" class="form-control" value="2"/>
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailNumber" class="text-danger"></span>
                             </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailCustomer" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailCustomer" class="form-control" value="2" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailCustomer" class="form-control" value="3" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailCustomer" class="text-danger"></span>
                             </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailCmobile" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailCmobile" class="form-control" value="3" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailCmobile" class="form-control" value="4" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailCmobile" class="text-danger"></span>
                             </td>
-                        </tr>
-                        <tr class="row">
+                            <td class="col-2">
+                                <label asp-for="excelUploadModel.Excel_DossierDetailCaddress" class="form-label"></label>
+                            </td>
+                            <td class="col-2">
+                                <input asp-for="excelUploadModel.Excel_DossierDetailCaddress" class="form-control" value="5" />
+                                <span asp-validation-for="excelUploadModel.Excel_DossierDetailCaddress" class="text-danger"></span>
+                            </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailLength" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailLength" class="form-control" value="4" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailLength" class="form-control" value="6" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailLength" class="text-danger"></span>
                             </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailWidth" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailWidth" class="form-control" value="5" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailWidth" class="form-control" value="7" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailWidth" class="text-danger"></span>
                             </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailProduct" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailProduct" class="form-control" value="6" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailProduct" class="form-control" value="8" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailProduct" class="text-danger"></span>
                             </td>
-                        </tr>
-                        <tr class="row">
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailQuantity" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailQuantity" class="form-control" value="7" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailQuantity" class="form-control" value="9" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailQuantity" class="text-danger"></span>
                             </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailHour" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailHour" class="form-control" value="8" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailHour" class="form-control" value="10" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailHour" class="text-danger"></span>
                             </td>
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailType" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailType" class="form-control" value="9" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailType" class="form-control" value="11" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailType" class="text-danger"></span>
                             </td>
-                        </tr>
-                        <tr class="row">
                             <td class="col-2">
                                 <label asp-for="excelUploadModel.Excel_DossierDetailDriverId" class="form-label"></label>
                             </td>
                             <td class="col-2">
-                                <input asp-for="excelUploadModel.Excel_DossierDetailDriverId" class="form-control" value="10" />
+                                <input asp-for="excelUploadModel.Excel_DossierDetailDriverId" class="form-control" value="12" />
                                 <span asp-validation-for="excelUploadModel.Excel_DossierDetailDriverId" class="text-danger"></span>
+                            </td>
+                            <td class="col">
                             </td>
                         </tr>
                     </table>
@@ -329,12 +377,27 @@
 }
 
 @section Scripts{
+    <script src="~/js/persiandatepicker.min.js"></script>
     <script>
         $('.Cancel').on('click', function () {
             window.location.href = "/Admin/DossierDetail";
         })
         $('#AddFromExcel').on('click',function(){
             $('#ExcelUploadModal').modal('show');
+        })
+        $(function () {
+            $("#ExcelDateTime").persianDatepicker();
+        });
+        $(function () {
+            $("#DossierDateilDateTime").persianDatepicker();
+        });
+        $('#MoreOptionUploadBtn').on('click',function(){
+            var sw = document.getElementById("MoreOptionUpload");
+            if (sw.style.display === "flex") {
+                sw.style.display = "none";
+            } else {
+                sw.style.display = "flex";
+            }
         })
     </script>
 }

@@ -29,5 +29,7 @@ public partial class TGlcdossierDetailInfo:BaseEntity
 
     public int DossierDetailDriverId { get; set; }
 
+    public string DossierDetailDateTime { get; set; } = null!;
+
     public virtual TGlcdriverInfo DossierDetailDriver { get; set; } = null!;
 }

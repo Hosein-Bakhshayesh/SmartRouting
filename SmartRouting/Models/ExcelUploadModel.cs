@@ -41,5 +41,8 @@ namespace SmartRouting.Models
         [Required(ErrorMessage = "فیلد {0} ضروری میباشد")]
         [DisplayName("شماره ستون کد ملی راننده")]
         public int Excel_DossierDetailDriverId { get; set; }
+        [Required(ErrorMessage = "فیلد {0} ضروری میباشد")]
+        [DisplayName("تاریخ")]
+        public string Exce_DossierDetailDateTime { get; set; } = null!;
     }
 }

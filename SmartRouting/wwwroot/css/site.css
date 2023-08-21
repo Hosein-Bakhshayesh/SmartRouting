@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'Vazir';
+    src: url("../Font/Vazir-Medium.ttf") format('truetype');
+    src: url("../Font/Vazir-Medium.woff") format('woff');
+    src: url("../Font/Vazir-Medium.woff2") format('woff2');
+}
+
+* {
+    font-family: 'Vazir';
+}
+
 html {
   font-size: 14px;
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartRouting.Models.Models;
 
-public partial class TGlcuserRoleInfo:BaseEntity
+public partial class TGlcuserRoleInfo : BaseEntity
 {
     public int GlcuserRoleInfoId { get; set; }
 

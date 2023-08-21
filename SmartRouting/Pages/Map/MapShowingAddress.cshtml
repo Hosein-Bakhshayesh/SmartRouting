@@ -1,0 +1,12 @@
+﻿@page "/Map"
+@model SmartRouting.Pages.Map.MapShowingAddressModel
+@{
+    ViewData["Title"] = "نقشه";
+}
+<div class="w-100 h-100 text-center">
+    <div class="map" id="map"></div>
+</div>
+
+@section Scripts{
+    <script src="~/js/leafletscripts.js"></script>
+}
