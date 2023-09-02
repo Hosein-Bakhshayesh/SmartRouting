@@ -87,7 +87,7 @@ namespace SmartRouting.Pages.Map
                 string smsDiscription = $"همکار گرامی\n {driverinfo.GlcdriverName + " " + driverinfo.GlcdriverLastName} \n تعداد {sumQuantitu} کالا برای {sumAddressCount} آدرس برای شما تعریف شده است.";
                 smsDiscription += $"\n تاریخ : {DateTime}";
                 smsDiscription += $"\n شیفت : {driverShift.GlcdriverShiftBeginHour} الی {driverShift.GlcdriverShiftEndHour}";
-                smsDiscription += $"برای مشاهده آدرس ها به اپلیکیشن مراجعه و جهت دریافت کالا راس ساعت {driverShift.GlcdriverShiftBeginHour} در {TerminalName} حاضر شوید.";
+                smsDiscription += $"\nبرای مشاهده آدرس ها به اپلیکیشن مراجعه و جهت دریافت کالا راس ساعت {driverShift.GlcdriverShiftBeginHour} در {TerminalName} حاضر شوید.";
                 smsDiscription += "\n واحد توزیع شرکت لجستیک گلدیران";
                 glcSms.GlcsmsDiscription = smsDiscription ;
                 glcSmsList.Add(glcSms);
@@ -99,8 +99,8 @@ namespace SmartRouting.Pages.Map
                 request.Method = Method.Post;
                 request.AddHeader("content-type", "application/x-www-form-urlencoded");
                 request.AddParameter("application/x-www-form-urlencoded",
-                    $"username=goldiransmsuser&password=#tarnavaz3989&source=98151651&destination = {sms.GlcsmsMobileNumber} & message = {sms.GlcsmsDiscription}",ParameterType.RequestBody);
-                RestResponse response = client.Execute(request);
+                    $"username=goldiransmsuser&password=#tarnavaz3989&source=982151651&destination={sms.GlcsmsMobileNumber}&message={sms.GlcsmsDiscription}",ParameterType.RequestBody);
+                RestResponse response = client.ExecutePost(request);
             }
             return RedirectToPage("Index");
 
