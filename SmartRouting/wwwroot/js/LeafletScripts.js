@@ -122,9 +122,6 @@ window.onload = function () {
                             map.removeLayer(polygon);
                         }
                         polygonLatlngs[index] = [res[j].dossierDetailLength, res[j].dossierDetailWidth];
-                        if (index > 0) {
-                            DistancePolygon(polygonLatlngs[index - 1], polygonLatlngs[index], polygon._leaflet_id);
-                        }
                         polygon = L.polygon(polygonLatlngs, {
                             contextmenu: true,
                             contextmenuInheritItems: false,
@@ -162,71 +159,4 @@ function Delete() {
         polygonLatlngs.pop();
     }
     index = 0;
-}
-
-function DistancePolygon(originLatLng, distanceLatLng, id) {
-    var Distance = {};
-    Distance.OriginLatLng = originLatLng[0] + "," + originLatLng[1];
-    Distance.DistanceLatLng = distanceLatLng[0] + "," + distanceLatLng[1];
-    var js = JSON.stringify(Distance)
-    var have = false;
-    for (var i = 0; i < sumDistance.length; i++) {
-        if (sumDistance[i].id == id)
-            have = true;
-    }
-    if (have == false) {
-        sumDistance.push({ id: id, sumPolygonKmTrafic: 0, sumPolygonTimeTrafic: 0, sumPolygonKm: 0, sumPolygonTime: 0, pString: "" });
-    }
-    $.ajax({
-        type: "POST",
-        url: "/Map?handler=FindDistanceTrafic",
-        data: js,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("RequestVerificationToken",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-        },
-        success: function (res) {
-            $.ajax({
-                type: "POST",
-                url: "/Map?handler=FindDistance",
-                data: js,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (res1) {
-
-                    for (var i = 0; i < sumDistance.length; i++) {
-                        if (sumDistance[i].id == id) {
-                            sumDistance[i].sumPolygonKmTrafic += (res.rows[0].elements[0].distance.value);
-                            sumDistance[i].sumPolygonTimeTrafic += (res.rows[0].elements[0].duration.value);
-                            sumDistance[i].sumPolygonKm += (res1.rows[0].elements[0].distance.value);
-                            sumDistance[i].sumPolygonTime += (res1.rows[0].elements[0].duration.value)
-
-                        }
-
-                    }
-                    for (var i = 0; i < sumDistance.length; i++) {
-                        temp = Math.round(sumDistance[i].sumPolygonTimeTrafic / 60);
-                        temp2 = Math.round(sumDistance[i].sumPolygonTime / 60);
-                        sumDistance[i].pString = "<span><b>مسافت : </b> " + (sumDistance[i].sumPolygonKmTrafic / 1000).toFixed(1) + " کیلومتر" + "<br>" + "<b>محاسبه زمان با ترافیک : </b> " + temp + " دقیقه" + "<br><b>محاسبه زمان بدون ترافیک : </b> " + temp2 + " دقیقه</span>";
-
-                        var tempId = sumDistance[i].id;
-                        polygon = polygonGroup._layers[tempId];
-                        polygon._popup._content = sumDistance[i].pString;
-                    }
-
-
-                },
-                error: function () {
-                    alert("Error");
-                }
-            })
-
-        },
-        error: function () {
-            alert("Error");
-        }
-
-    });
 }
