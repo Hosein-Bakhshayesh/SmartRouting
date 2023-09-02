@@ -5,6 +5,11 @@
 }
 <div class="w-100 h-100 text-center">
     <div class="map" id="map"></div>
+    <div id="submitBtn" class="text-right container">
+        <form asp-page-handler="SubmitAddress" method="post">
+            <button type="submit" class="btn btn-outline-success">تایید اطلاعات</button>
+        </form>
+    </div>
 </div>
 
 @section Scripts{

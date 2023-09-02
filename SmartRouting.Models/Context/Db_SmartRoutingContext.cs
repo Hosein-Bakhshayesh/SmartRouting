@@ -32,6 +32,8 @@ public partial class Db_SmartRoutingContext : DbContext
 
     public virtual DbSet<TGlcnavyTypeInfo> TGlcnavyTypeInfos { get; set; }
 
+    public virtual DbSet<TGlcsms> TGlcsms { get; set; }
+
     public virtual DbSet<TGlcterminalInfo> TGlcterminalInfos { get; set; }
 
     public virtual DbSet<TGlcuserRoleInfo> TGlcuserRoleInfos { get; set; }
@@ -41,7 +43,6 @@ public partial class Db_SmartRoutingContext : DbContext
     public virtual DbSet<TPelakChar> TPelakChars { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=10.127.11.113;Initial Catalog=Db_SmartRouting;User Id=h.bakhshayesh;Password=Hb09378149897;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -219,6 +220,19 @@ public partial class Db_SmartRoutingContext : DbContext
                 .HasForeignKey(d => d.GlcnavyTypeModel)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_T_GLCNavyModel_T_GLCNavyTypeInfo");
+        });
+
+        modelBuilder.Entity<TGlcsms>(entity =>
+        {
+            entity.HasKey(e => e.GlcsmsId);
+
+            entity.ToTable("T_GLCSms");
+
+            entity.Property(e => e.GlcsmsId).HasColumnName("GLCSms_ID");
+            entity.Property(e => e.GlcsmsDiscription).HasColumnName("GLCSms_Discription");
+            entity.Property(e => e.GlcsmsMobileNumber)
+                .HasMaxLength(50)
+                .HasColumnName("GLCSms_MobileNumber");
         });
 
         modelBuilder.Entity<TGlcterminalInfo>(entity =>
